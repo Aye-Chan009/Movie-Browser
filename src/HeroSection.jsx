@@ -1,4 +1,4 @@
-const Hero = () => {
+const Hero = ({text}) => {
     return (
         <div>
             <section
@@ -12,6 +12,7 @@ const Hero = () => {
                 <div className="text-center">
                     <h1 className="display-4">Welcome to Our Website!</h1>
                     <p className="lead">Explore our amazing content and services. Get started now!</p>
+                    <p className="lead">{text}</p>
                     <a href="#services" className="btn btn-primary btn-lg">Get Started</a>
                 </div>
             </section>

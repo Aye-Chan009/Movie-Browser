@@ -9,15 +9,32 @@ function App() {
 
   const [searchResults, setSearchResults] = useState([])
   const [searchText, setSearchText] = useState('')
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
-    setSearchText("something");
-    setSearchResults("Found Something")
-  }, []);
+    if (!query) return;
+
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&api_key=bc67fd496dc03a11ce5cadac8e55bff0`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.results) {
+          setSearchResults(data.results);
+        } else {
+          setSearchResults([]);
+        }
+      })
+      .catch(err => console.error('Fetch error:', err));
+  });
   
   return (
     <div>
-      <NavBar />
+      <NavBar
+        searchText={searchText}
+        setSearchText={setSearchText}
+        setQuery={setQuery}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

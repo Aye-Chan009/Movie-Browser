@@ -1,25 +1,14 @@
-const Hero = ({text}) => {
-    return (
-        <div>
-            <section
-                className="vh-50 d-flex justify-content-center align-items-center bg-dark text-light"
-                style={{
-                    backgroundColor: 'black'
-                }}
-            >
-                <div className="text-center">
-                    <h1 className="display-4"
-                    style={{
-                        paddingTop: '80px',
-                        paddingBottom: '80px',
-                    }}
-                    >
-                        {text}
-                    </h1>
-                </div>
-            </section>
+import './HeroSection.css';
 
-        </div>
+const Hero = ({text, backdrop}) => {
+    return (
+        <header className="container bg-dark text-white p-5">
+            <h1 className="text">{text}</h1>
+            {backdrop&&
+                <div className="backdrop" style={{backgroundImage: `url(${backdrop})` }}></div>
+            }
+
+        </header>
     );
 }
 

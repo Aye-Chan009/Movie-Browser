@@ -1,6 +1,8 @@
 import NavBar from './NavBar.jsx'
 import Home from './Home.jsx'
 import About from './About.jsx'
+import MovieDetails from './MovieDetails.jsx'
+import MovieNotFound from './MovieNotFound.jsx'
 import { Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
@@ -46,6 +48,8 @@ function App() {
               searchResults={searchResults}
             />} 
         />
+        <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/movie-not-found" element={<MovieNotFound />} />
       </Routes>
     </div>
   )

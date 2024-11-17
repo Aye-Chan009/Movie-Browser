@@ -23,11 +23,6 @@ const NavBar = ({searchText, setSearchText, setQuery}) => {
     setSearchText(''); 
   };
 
-
-
-  //TMDB API key bc67fd496dc03a11ce5cadac8e55bff0
-  //example link fetch https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=bc67fd496dc03a11ce5cadac8e55bff0
-
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">

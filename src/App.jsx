@@ -4,6 +4,7 @@ import About from './About.jsx'
 import { Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
+const apiKey = import.meta.env.VITE_API_KEY;
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
   useEffect(() => {
     if (!query) return;
 
-    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&api_key=bc67fd496dc03a11ce5cadac8e55bff0`;
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&api_key=${apiKey}`;
 
     fetch(url)
       .then(res => res.json())
@@ -41,7 +42,7 @@ function App() {
         <Route path="/search" 
           element={
             <SearchView 
-              keyword={searchText} 
+              keyword={query} 
               searchResults={searchResults}
             />} 
         />

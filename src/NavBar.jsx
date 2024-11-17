@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = ({searchText, setSearchText, setQuery}) => {
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
@@ -10,12 +11,16 @@ const NavBar = ({searchText, setSearchText, setQuery}) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       setQuery(searchText);
+      navigate('/search');
+      setSearchText('');
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setQuery(searchText);
+    navigate('/search');
+    setSearchText(''); 
   };
 
 
@@ -57,7 +62,7 @@ const NavBar = ({searchText, setSearchText, setQuery}) => {
             <input
                 className="form-control me-2"
                 type="search"
-                placeholder="Search"
+                placeholder="Search Movies Here"
                 aria-label="Search"
                 value={searchText}
                 onChange={handleInputChange}

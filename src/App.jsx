@@ -11,11 +11,30 @@ const apiKey = import.meta.env.VITE_API_KEY;
 function App() {
 
   const [searchResults, setSearchResults] = useState([])
+  const [showResults, setShowResults] = useState([])
   const [searchText, setSearchText] = useState('')
   const [query, setQuery] = useState('');
+  const [confirm, setConfirm] = useState(false);
 
   useEffect(() => {
-    if (!query) return;
+    if (!searchText) return;
+
+    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchText)}&api_key=${apiKey}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.results) {
+          setShowResults(data.results);
+        } else {
+          setShowResults([]);
+        }
+      })
+      .catch(err => console.error('Fetch error:', err));
+  }, [searchText]);
+
+  useEffect(() => {
+    if (!confirm) return;
 
     const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&api_key=${apiKey}`;
 
@@ -28,8 +47,9 @@ function App() {
           setSearchResults([]);
         }
       })
-      .catch(err => console.error('Fetch error:', err));
-  });
+      .catch(err => console.error('Fetch error:', err))
+      .finally(() => setConfirm(false));
+  }, [confirm, query]);
   
   return (
     <div>
@@ -37,6 +57,8 @@ function App() {
         searchText={searchText}
         setSearchText={setSearchText}
         setQuery={setQuery}
+        setConfirm={setConfirm}
+        showResults={showResults}
       />
       <Routes>
         <Route path="/" element={<Home />} />

@@ -1,26 +1,56 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-const NavBar = ({searchText, setSearchText, setQuery}) => {
+//still need to do Searchbar
+//go to details page from searchbar
+//make the searchbar long in full screen
+
+
+const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) => {
   const navigate = useNavigate();
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
+    setIsDropdownVisible(true);
   };
 
   const updateSearchText = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       setQuery(searchText);
+      setConfirm(true);
       navigate('/search');
       setSearchText('');
+      setIsDropdownVisible(false); 
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setQuery(searchText);
+    setConfirm(true);
     navigate('/search');
-    setSearchText(''); 
+    setSearchText('');
+    setIsDropdownVisible(false); 
+  };
+
+  const handleSuggestionClick = (e) => {
+    setSearchText(e);
+    setQuery(e);
+    setConfirm(true);
+    navigate('/search');
+    setIsDropdownVisible(false); 
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setIsDropdownVisible(false);
+    }, 100);
+  };
+
+  const handleFocus = () => {
+    setIsDropdownVisible(true);
   };
 
   return (
@@ -54,16 +84,45 @@ const NavBar = ({searchText, setSearchText, setQuery}) => {
             </li>
           </ul>
           <form className="d-flex" role="search" onSubmit={handleSubmit}>
-            <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search Movies Here"
-                aria-label="Search"
-                value={searchText}
-                onChange={handleInputChange}
-                onKeyDown={updateSearchText}
-              />
-            <button className="btn btn-outline-success" type="submit">Search</button>
+            <div className="dropdown col-6">
+              <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search Movies Here"
+                  aria-label="Search"
+                  value={searchText}
+                  onChange={handleInputChange}
+                  onKeyDown={updateSearchText}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur} 
+                />
+                {isDropdownVisible && searchText !== '' && showResults.length > 0 && (
+                <ul className="dropdown-menu show" 
+                style={{
+                  width: '100%',
+                  whiteSpace: 'normal',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word'}}
+                aria-labelledby="navbarDropdown">
+                {showResults.map((result, index) => (
+                    <li key={index}>
+                      <button
+                        className="dropdown-item"
+                        style={{
+                          width: '100%',
+                          whiteSpace: 'normal',
+                          wordWrap: 'break-word',
+                          overflowWrap: 'break-word'}}
+                        onClick={() => handleSuggestionClick(result.title)}
+                      >
+                        {result.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <button className="btn btn-outline-success ms-2" type="submit">Search</button>
           </form>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SearchBarMovieCards from './SearchBarMovieCards.jsx'
 
 //still need to do Searchbar
@@ -10,6 +10,30 @@ import SearchBarMovieCards from './SearchBarMovieCards.jsx'
 const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) => {
   const navigate = useNavigate();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const dropdownRef = useRef(null);
+  const inputRef = useRef(null);
+  const submitButtonRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        inputRef.current &&
+        !inputRef.current.contains(e.target) &&
+        submitButtonRef.current &&
+        !submitButtonRef.current.contains(e.target)
+      ) {
+        setIsDropdownVisible(false);
+        setSearchText('');
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
@@ -36,19 +60,21 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) 
     setIsDropdownVisible(false); 
   };
 
-  const handleSuggestionClick = (e) => {
+  /*const handleSuggestionClick = (e) => {
     setSearchText(e);
     setQuery(e);
     setConfirm(true);
     navigate('/search');
     setIsDropdownVisible(false); 
-  };
+  };*/
 
-  const handleBlur = () => {
+  /*const handleBlur = () => {
     setTimeout(() => {
-      setIsDropdownVisible(false);
+      if (!e.currentTarget.contains(document.activeElement)) {
+        setIsDropdownVisible(false);
+      }
     }, 100);
-  };
+  };*/
 
   const handleFocus = () => {
     setIsDropdownVisible(true);
@@ -85,8 +111,9 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) 
             </li>
           </ul>
           <form className="d-flex w-100" role="search" onSubmit={handleSubmit}>
-            <div className="dropdown flex-grow-1" style={{maxWidth: '546px'}}>
+            <div className="dropdown flex-grow-1" style={{maxWidth: '546px'}} ref={dropdownRef}>
               <input
+                  ref={inputRef}
                   className="form-control me-2"
                   type="search"
                   placeholder="Search Movies Here"
@@ -95,7 +122,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) 
                   onChange={handleInputChange}
                   onKeyDown={updateSearchText}
                   onFocus={handleFocus}
-                  onBlur={handleBlur} 
+                  //onBlur={handleBlur} 
                 />
                 {isDropdownVisible && searchText !== '' && showResults.length > 0 && (
                 <ul className="dropdown-menu show" 
@@ -107,23 +134,31 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) 
                 aria-labelledby="navbarDropdown">
                 {showResults.map((result, index) => (
                     <li key={index}>
-                      <button
+                      {/*<button
                         className="dropdown-item"
                         style={{
                           width: '100%',
                           whiteSpace: 'normal',
                           wordWrap: 'break-word',
                           overflowWrap: 'break-word'}}
-                        onClick={() => handleSuggestionClick(result.title)}
+                        onClick={() => handleSuggestionClick(result.id)}
                       >
                         <SearchBarMovieCards movie={result} />
-                      </button>
+                      </button>*/}
+                      <Link
+                        to={`/movie/${result.id}`}
+                        className="dropdown-item"
+                        onClick={() => { setIsDropdownVisible(false); setSearchText(''); }}
+                        //onClick={() => alert("success")} 
+                      >
+                        <SearchBarMovieCards movie={result} />
+                      </Link>
                     </li>
                   ))}
                 </ul>
               )}
             </div>
-            <button className="btn btn-outline-success ms-2" type="submit">Search</button>
+            <button ref={submitButtonRef} className="btn btn-outline-success ms-2" type="submit">Search</button>
           </form>
         </div>
       </div>

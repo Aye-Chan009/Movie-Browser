@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import SearchBarMovieCards from './SearchBarMovieCards.jsx'
 
 //still need to do Searchbar
 //go to details page from searchbar
@@ -83,8 +84,8 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) 
               <a className="nav-link disabled" aria-disabled="true">Disabled</a>
             </li>
           </ul>
-          <form className="d-flex" role="search" onSubmit={handleSubmit}>
-            <div className="dropdown col-6">
+          <form className="d-flex w-100" role="search" onSubmit={handleSubmit}>
+            <div className="dropdown flex-grow-1" style={{maxWidth: '546px'}}>
               <input
                   className="form-control me-2"
                   type="search"
@@ -115,7 +116,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) 
                           overflowWrap: 'break-word'}}
                         onClick={() => handleSuggestionClick(result.title)}
                       >
-                        {result.title}
+                        <SearchBarMovieCards movie={result} />
                       </button>
                     </li>
                   ))}

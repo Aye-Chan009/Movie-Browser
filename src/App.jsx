@@ -49,7 +49,7 @@ function App() {
       })
       .catch(err => console.error('Fetch error:', err))
       .finally(() => setConfirm(false));
-  }, [confirm, query]);
+  }, [confirm]);
   
   return (
     <div>

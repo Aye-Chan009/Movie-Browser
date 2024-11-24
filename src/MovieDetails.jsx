@@ -60,7 +60,7 @@ const MovieDetails =() => {
             <Hero text={movieDetail?.original_title || 'Movie Not Found'}
                 backdrop={backDropUrl}
             />
-            <div className="container my-5">
+            <div className="container py-5">
                 <div className="row">
                     <div className="col-md-7">
                         <h1 className="lead fs-1"><em>{movieDetail?.tagline || ''}</em></h1>

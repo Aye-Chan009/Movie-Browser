@@ -9,7 +9,7 @@ const SearchView = ({ keyword, searchResults }) => {
     if (searchResults && searchResults.length > 0) {
         resultsHTML = searchResults.map((obj, i) => {
             return (
-                <div key={i} className="col-md-3 mb-4">
+                <div key={i} className="col-lg-3 mb-4">
                     <MovieCard movie={obj} />
                     {/*<MovieDetail movie={obj} />*/}
                 </div>
@@ -21,7 +21,6 @@ const SearchView = ({ keyword, searchResults }) => {
         <div>
             <Hero text = {searchTitle} />
             <div id="services" className="container py-5">
-                <h2>Search Result</h2>
                 <div className="row">
                     {resultsHTML}
                 </div>

@@ -36,7 +36,7 @@ const Home = () => {
             <Hero text = "Home page hero section" />
             <div id="services" className="container py-5 bg-primary">
                 <h1 className="d-flex justify-content-center pb-5">Our Home</h1>
-                <div >
+                <div>
                     {popularMovie ? (
 
                         <MovieCarousel popularMovie={popularMovie} />

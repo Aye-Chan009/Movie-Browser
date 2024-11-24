@@ -114,9 +114,6 @@
     display: 'flex';
     justify-content: 'center';
 }*/
-.carousel-item-title {
-    margin: 3rem;
-}
 
 /*@media for small screen*/
 @media (max-width: 991px) {

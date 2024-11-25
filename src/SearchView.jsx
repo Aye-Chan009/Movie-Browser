@@ -1,5 +1,6 @@
 import Hero from './HeroSection'
 import MovieCard from './MovieCards.jsx'
+import Footer from './Footer';
 //import MovieDetail from './MovieDetails.jsx'
 
 const SearchView = ({ keyword, searchResults }) => {
@@ -25,6 +26,7 @@ const SearchView = ({ keyword, searchResults }) => {
                     {resultsHTML}
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

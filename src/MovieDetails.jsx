@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Hero from './HeroSection'
+import Footer from './Footer';
 import { useParams, useNavigate } from 'react-router-dom';
 const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -115,6 +116,7 @@ const MovieDetails =() => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>  
     )
 }

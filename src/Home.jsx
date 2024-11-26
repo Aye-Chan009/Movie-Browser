@@ -2,6 +2,7 @@ import Hero from './HeroSection';
 import React, { useState, useEffect } from 'react';
 import Footer from './Footer';
 import MovieCarousel from './Carousel.jsx'
+import TrailerCarousel from './TrailerCarousel.jsx'
 const accessKey = import.meta.env.VITE_Access_Key;
 
 const isReleaseDateInPast = (releaseDate) => {
@@ -55,7 +56,7 @@ const Home = () => {
             if (Trending.length === 0) {
                 return; 
             }
-
+    
             const trailerPromises = Trending.map((movie) => fetch(`https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`, {
                 method: 'GET',
                 headers: {
@@ -66,23 +67,30 @@ const Home = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     if (data && data.results.length > 0) {
-                        return {
-                            movieId: movie.id,
-                            trailerId: data.results[0].key,
-                        };
+                        // Find the first trailer with type 'trailer'
+                        const trailer = data.results.find((item) => item.type === 'Trailer');
+                        if (trailer) {
+                            return {
+                                movieId: movie.id,
+                                trailerKey: trailer.key,
+                            };
+                        } else {
+                            return { movieId: movie.id, trailerKey: null };
+                        }
                     } else {
-                        return { movieId: movie.id, trailerId: null };
+                        return { movieId: movie.id, trailerKey: null };
                     }
                 })
                 .catch((err) => {
                     console.error(`Error fetching trailer for movie ${movie.id}:`, err);
-                    return { movieId: movie.id, trailerId: null };
+                    return { movieId: movie.id, trailerKey: null };
                 }));
+    
             const trailers = await Promise.all(trailerPromises);
             const flattenedTrailers = trailers.flat();
             setTrailer(flattenedTrailers);
         };
-
+    
         fetchTrailers();
     }, [Trending]);
 
@@ -123,7 +131,7 @@ const Home = () => {
                 <h1 className="d-flex justify-content-center pb-5">Today's Trending Movies</h1>
                 <div>
                     {Trailer.length > 0 ? (
-                            <MovieCarousel chunkedTrailer={chunkedTrailer} />
+                            <TrailerCarousel Trailer={chunkedTrailer} />
                     ) : (
                         <p>Loading Today's Trending Movies...</p>
                     )}

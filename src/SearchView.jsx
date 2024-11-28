@@ -8,10 +8,10 @@ const SearchView = ({ keyword, searchResults }) => {
     let resultsHTML = 'Found Nothing';
 
     if (searchResults && searchResults.length > 0) {
-        resultsHTML = searchResults.map((obj, i) => {
+        resultsHTML = searchResults.map((movie, index) => {
             return (
-                <div key={i} className="col-lg-3 mb-4">
-                    <MovieCard movie={obj} />
+                <div key={index} className="col-lg-3 mb-4">
+                    <MovieCard movie={movie} />
                     {/*<MovieDetail movie={obj} />*/}
                 </div>
             )

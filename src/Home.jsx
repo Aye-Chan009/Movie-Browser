@@ -1,8 +1,16 @@
-import Hero from './HeroSection';
+import Hero from './HeroSection.jsx';
 import React, { useState, useEffect } from 'react';
 import Footer from './Footer';
-import MovieCarousel from './Carousel.jsx'
-import TrailerCarousel from './TrailerCarousel.jsx'
+import Carousel from './Carousel.jsx';
+import GenreMovieCard from './GenreMovieCard.jsx';
+import { genres } from './assets/genres.jsx';
+
+//what to watch today fix
+//popular people birthday
+//top rated movie tab
+//popular movie tab
+//search movie by genre tab
+
 const accessKey = import.meta.env.VITE_Access_Key;
 
 const isReleaseDateInPast = (releaseDate) => {
@@ -13,10 +21,17 @@ const isReleaseDateInPast = (releaseDate) => {
     return today > releaseDateObj;
   };
 
+  const getGenreOfTheDay = () => {
+    const dayOfYear = new Date().getDate();
+    const genreIndex = dayOfYear % genres.length;
+    return genres[genreIndex];
+};
+
 const Home = () => {
     const [NowPlaying, setNowPlaying] = useState([])
     const [Trending, setTrending] = useState([])
     const [Trailer, setTrailer] = useState([])
+    const [TopRated, setTopRated] = useState([])
 
     useEffect(() => {
         const options = {
@@ -45,6 +60,18 @@ const Home = () => {
                 setTrending(data.results);
                 } else {
                 setTrending([]);
+                }
+            })
+            .catch(err => console.error(err));
+            
+            const genreOfTheDay = getGenreOfTheDay();
+            fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_genres=${genreOfTheDay.id}`, options)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.results) {
+                setTopRated(data.results);
+                } else {
+                setTopRated([]);
                 }
             })
             .catch(err => console.error(err));
@@ -99,8 +126,8 @@ const Home = () => {
         for (let i = 0; i < NowPlaying.length; i++) {
             const movie = NowPlaying[i];
             if (isReleaseDateInPast(movie.release_date)) {
-                if (i % 3 === 0) {
-                    chunkedMovies.push(NowPlaying.slice(i, i + 3));
+                if (i % 4 === 0) {
+                    chunkedMovies.push(NowPlaying.slice(i, i + 4));
                 }
             }
         }
@@ -123,17 +150,25 @@ const Home = () => {
                 <div>
                     {NowPlaying.length > 0 ? (
 
-                        <MovieCarousel chunkedMovies={chunkedMovies} />
+                        <Carousel chunkedMovies={chunkedMovies} />
                     ) : (
                         <p>Loading Movies In Theaters...</p>
                     )}
                 </div>
-                <h1 className="d-flex justify-content-center pb-5">Today's Trending Movies</h1>
+                <h1 className="d-flex justify-content-center pb-5">Trending Trailers for today</h1>
                 <div>
                     {Trailer.length > 0 ? (
-                            <TrailerCarousel Trailer={chunkedTrailer} />
+                            <Carousel Trailer={chunkedTrailer} />
                     ) : (
                         <p>Loading Today's Trending Movies...</p>
+                    )}
+                </div>
+                <h1 className="d-flex justify-content-center pb-5">What to watch today?? : {getGenreOfTheDay().name}</h1>
+                <div>
+                    {TopRated.length > 0 ? (
+                        <GenreMovieCard TopRated={TopRated}/>
+                    ) : (
+                        <p>Loading Today's Movies...</p>
                     )}
                 </div>
             </div>

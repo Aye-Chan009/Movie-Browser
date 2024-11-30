@@ -1,3 +1,67 @@
+/*Movie Detail CSS*/
+.top {
+    position: relative;
+    display: flex;
+    justify-content: flex-start; /* Aligns content to the left */
+    height: 40rem; /* Adjusted height */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding-left: 2rem;
+    padding-top: 3rem;
+}
+
+.top .moviedetail-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7); /* Dark background overlay */
+    z-index: 1;
+}
+
+.top .moviedetail-poster {
+    z-index: 2;
+}
+
+.moviedetail-poster {
+    width: 100%;
+    max-width: 200px; /* Reduced poster size */
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.1),  /* Black shadow */
+        0 0 12px rgba(255, 255, 255, 0.5); /* White shadow */
+    transition: transform 0.3s ease-in-out;
+}
+
+.words {
+    z-index: 2;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.movie-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    margin-bottom: 0.5rem;
+}
+
+.display-4 {
+    font-size: 1.8rem;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.moviedetail-card {
+    background-color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
 /*Footer CSS */
 .footer {
     background-color: #333;

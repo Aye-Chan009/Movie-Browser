@@ -1,13 +1,13 @@
-import Hero from './HeroSection'
+import Hero from "./HeroSection"
 import MovieCard from './MovieCards.jsx'
 import Footer from './Footer';
 
-const SearchView = ({ keyword, searchResults }) => {
-    const searchTitle = `Searching for ${keyword}`;
+const PopularCurrently = ({ Movies, heroText }) => {
+
     let resultsHTML = 'Found Nothing';
 
-    if (searchResults && searchResults.length > 0) {
-        resultsHTML = searchResults.map((movie, index) => {
+    if (Movies && Movies.length > 0) {
+        resultsHTML = Movies.map((movie, index) => {
             return (
                 <div key={index} className="col-lg-3 mb-4">
                     <MovieCard movie={movie} />
@@ -18,7 +18,7 @@ const SearchView = ({ keyword, searchResults }) => {
 
     return (
         <div>
-            <Hero text = {searchTitle} />
+            <Hero text = {heroText} />
             <div id="services" className="container py-5">
                 <div className="row">
                     {resultsHTML}
@@ -28,6 +28,6 @@ const SearchView = ({ keyword, searchResults }) => {
         </div>
     );
 }
-
-export default SearchView;
+  
+  export default PopularCurrently;
   

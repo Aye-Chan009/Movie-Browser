@@ -4,9 +4,14 @@ import './GenreMovieCard.css'
 
 const GenreMovieCards = ({ TopRated }) => {
 
+    const chunkedTopRated = (TopRated) => {
+        const shuffledMovies = [...TopRated].sort(() => Math.random() - 0.5);
+        return shuffledMovies.slice(0, 10);
+    };
+
     return (
         <div className="genre-movie-cards">
-            {TopRated.map((movie) => {
+            {chunkedTopRated(TopRated).map((movie) => {
                 const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
                 const movieURL = `/movie/${movie.id}`;
 

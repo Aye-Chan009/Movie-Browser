@@ -2,13 +2,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import SearchBarMovieCards from './SearchBarMovieCards.jsx'
 import './App.css'
+import { genres } from './assets/genres';
 
-//still need to do Searchbar
-//go to details page from searchbar
-//make the searchbar long in full screen
-
-
-const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) => {
+const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, setGenreType}) => {
   const navigate = useNavigate();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
@@ -68,31 +64,50 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults}) 
     <div className='container bg-primary p-0'>
       <nav className="navbar navbar-expand-lg bg-primary">
         <div className="container-fluid">
-          <Link className="navbar-brand fs-1" to="/">Movie Browser <div className="fs-6">by Aye Chan</div></Link>
+          <Link className="navbar-brand fs-1" to="/" style={{ fontWeight: 'bold' }}>Movie Browser <div className="fs-6">by Aye Chan</div></Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{ whiteSpace: 'nowrap' }}>
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/about">About</Link>
+                <Link className="nav-link active" aria-current="page" to="/TopRatedMovies" style={{ fontWeight: 'bold' }}>Top Rated Movies</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
+                <Link className="nav-link active" to="/PopularCurrently" style={{ fontWeight: 'bold' }}>Popular Currently</Link>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="#">Action</a></li>
-                  <li><a className="dropdown-item" href="#">Another action</a></li>
-                  <li><hr className="dropdown-divider"/></li>
-                  <li><a className="dropdown-item" href="#">Something else here</a></li>
+                <div className="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: 'bold' }}>
+                  Genres
+                </div>
+                <ul
+                  className="dropdown-menu"
+                  style={{
+                    padding: '10px',
+                    minWidth: '200px', // Ensure dropdown is wide enough to accommodate grid
+                  }}
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <div
+                    className="dropdown-menu-grid"
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(3, 1fr)', // 3 equal columns
+                      gap: '10px', // Add space between items
+                    }}
+                  >
+                    {genres.map((genre) => (
+                      <li key={genre.id} style={{ listStyleType: 'none' }}>
+                        <Link 
+                          className="dropdown-item" 
+                          to={`/movies/${genre.name}`} 
+                          onClick={() => { setGenreType(genre); }}>
+                          {genre.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </div>
                 </ul>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled" aria-disabled="true">Disabled</a>
               </li>
             </ul>
             <form className="d-flex search-form" role="search" onSubmit={handleSubmit}>

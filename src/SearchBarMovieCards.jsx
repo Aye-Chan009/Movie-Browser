@@ -1,10 +1,8 @@
 const SearchBarMovieCards =({movie}) => {
 
     const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
-    //const movieURL = `/movie/${movie.id}`;
 
     return (
-        //<Link to={movieURL} style={{ textDecoration: 'none' }}>
             <div className="card mb-3 w-100" 
             style={{cursor: 'pointer', margin: '0', padding: '0'}}>
                 <div className="row g-0">
@@ -23,7 +21,6 @@ const SearchBarMovieCards =({movie}) => {
                     </div>
                 </div>
             </div>  
-        //</Link> 
     )
 }
 

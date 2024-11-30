@@ -4,14 +4,23 @@ import Footer from './Footer';
 import Carousel from './Carousel.jsx';
 import GenreMovieCard from './GenreMovieCard.jsx';
 import { genres } from './assets/genres.jsx';
-
-//what to watch today fix
-//popular people birthday
-//top rated movie tab
-//popular movie tab
-//search movie by genre tab
-
 const accessKey = import.meta.env.VITE_Access_Key;
+
+//loading page
+//paganation
+//carousel fix
+//Footer fix
+//caching
+//Need to Itiate for each genres/production companies
+//what if movie is not yet released
+//404 page
+//Sometimes a search result doesn't have an image
+//there is no handler if there are no search results
+//Fix hero section
+//Make it pretty
+//actor/actress cards
+//fix backdrop
+//checkout TMDB and IMDB and try to copy them
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();
@@ -21,11 +30,12 @@ const isReleaseDateInPast = (releaseDate) => {
     return today > releaseDateObj;
   };
 
-  const getGenreOfTheDay = () => {
-    const dayOfYear = new Date().getDate();
-    const genreIndex = dayOfYear % genres.length;
-    return genres[genreIndex];
+const getGenreOfTheDay = () => {
+    const randomIndex = Math.floor(Math.random() * genres.length);
+    return genres[randomIndex];
 };
+
+const genreOfTheDay = getGenreOfTheDay();
 
 const Home = () => {
     const [NowPlaying, setNowPlaying] = useState([])
@@ -64,7 +74,6 @@ const Home = () => {
             })
             .catch(err => console.error(err));
             
-            const genreOfTheDay = getGenreOfTheDay();
             fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_genres=${genreOfTheDay.id}`, options)
             .then(res => res.json())
             .then(data => {
@@ -163,7 +172,7 @@ const Home = () => {
                         <p>Loading Today's Trending Movies...</p>
                     )}
                 </div>
-                <h1 className="d-flex justify-content-center pb-5">What to watch today?? : {getGenreOfTheDay().name}</h1>
+                <h1 className="d-flex justify-content-center pb-5">What to watch today?? : {genreOfTheDay.name}</h1>
                 <div>
                     {TopRated.length > 0 ? (
                         <GenreMovieCard TopRated={TopRated}/>

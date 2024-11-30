@@ -1,12 +1,13 @@
 import NavBar from './NavBar.jsx'
 import Home from './Home.jsx'
-import About from './About.jsx'
+import PopularCurrently from './PopularCurrently.jsx'
 import MovieDetails from './MovieDetails.jsx'
 import MovieNotFound from './MovieNotFound.jsx'
+import Hero from './HeroSection'
 import { Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
-const apiKey = import.meta.env.VITE_API_KEY;
+const accessKey = import.meta.env.VITE_Access_Key;
 
 function App() {
 
@@ -15,13 +16,24 @@ function App() {
   const [searchText, setSearchText] = useState('')
   const [query, setQuery] = useState('');
   const [confirm, setConfirm] = useState(false);
+  const [popularMovies, setPopularMovies] = useState([])
+  const [TopRatedMovies, setTopRatedMovies] = useState([])
+  const [genreType, setGenreType] = useState([])
+  const [genreMovie, setGenreMovie] = useState([])
+  const [loadingGenre, setLoadingGenre] = useState(false); 
+
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${accessKey}`
+    }
+  };
 
   useEffect(() => {
     if (!searchText) return;
-
-    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchText)}&api_key=${apiKey}`;
-
-    fetch(url)
+    
+    fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(searchText)}&include_adult=false&language=en-US&page=1`, options)
       .then(res => res.json())
       .then(data => {
         if (data && data.results) {
@@ -36,9 +48,7 @@ function App() {
   useEffect(() => {
     if (!confirm) return;
 
-    const url = `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&api_key=${apiKey}`;
-
-    fetch(url)
+    fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&include_adult=false&language=en-US&page=1`, options)
       .then(res => res.json())
       .then(data => {
         if (data && data.results) {
@@ -50,6 +60,50 @@ function App() {
       .catch(err => console.error('Fetch error:', err))
       .finally(() => setConfirm(false));
   }, [confirm]);
+
+  useEffect(() => {
+    if (!genreType) return;
+
+    setLoadingGenre(true);
+    
+    fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_genres=${genreType.id}`, options)
+    .then(res => res.json())
+    .then(data => {
+        if (data && data.results) {
+        setGenreMovie(data.results);
+        } else {
+        setGenreMovie([]);
+        }
+    })
+    .catch(err => console.error(err))
+    .finally(() => setLoadingGenre(false));
+  }, [genreType]);
+
+  useEffect(() => {
+    
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&include_adult=false&page=1', options)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.results) {
+          setPopularMovies(data.results);
+        } else {
+          setPopularMovies([]);
+        }
+      })
+      .catch(err => console.error('Fetch error:', err));
+      
+      fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.results) {
+          setTopRatedMovies(data.results);
+        } else {
+          setTopRatedMovies([]);
+        }
+      })
+      .catch(err => console.error('Fetch error:', err));
+
+  }, []);
   
   return (
     <div>
@@ -59,10 +113,24 @@ function App() {
         setQuery={setQuery}
         setConfirm={setConfirm}
         showResults={showResults}
+        setGenreType ={setGenreType}
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/TopRatedMovies"
+          element={
+            <PopularCurrently
+              Movies={TopRatedMovies}
+              heroText={"Top Rated Movies of all times"} 
+            />}
+        />
+        <Route path="/PopularCurrently" 
+          element={
+            <PopularCurrently
+              Movies={popularMovies}
+              heroText={"Movies Popular Currently"}  
+            />}
+        />
         <Route path="/search" 
           element={
             <SearchView 
@@ -72,6 +140,15 @@ function App() {
         />
         <Route path="/movie/:id" element={<MovieDetails />} />
         <Route path="/movie-not-found" element={<MovieNotFound />} />
+        <Route path="/movies/:genreName" 
+          element={
+            loadingGenre ? (
+              <Hero text = "Loading Movies..." /> 
+            ) : (
+              <PopularCurrently Movies={genreMovie} heroText={`Movies with Genre Tag: ${genreType.name}`} />
+            )
+          }
+        />
       </Routes>
     </div>
   )

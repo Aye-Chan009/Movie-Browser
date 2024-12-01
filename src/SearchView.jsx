@@ -1,9 +1,8 @@
 import Hero from './HeroSection'
 import MovieCard from './MovieCards.jsx'
-import Footer from './Footer';
 
 const SearchView = ({ keyword, searchResults }) => {
-    const searchTitle = `Searching for ${keyword}`;
+    const searchTitle = `Search Result for:  ${keyword}`;
     let resultsHTML = 'Found Nothing';
 
     if (searchResults && searchResults.length > 0) {
@@ -24,7 +23,6 @@ const SearchView = ({ keyword, searchResults }) => {
                     {resultsHTML}
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 }

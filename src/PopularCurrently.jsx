@@ -1,6 +1,5 @@
 import Hero from "./HeroSection"
 import MovieCard from './MovieCards.jsx'
-import Footer from './Footer';
 
 const PopularCurrently = ({ Movies, heroText }) => {
 
@@ -24,7 +23,6 @@ const PopularCurrently = ({ Movies, heroText }) => {
                     {resultsHTML}
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 }

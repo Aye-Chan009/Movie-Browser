@@ -90,6 +90,7 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                                                     width: '100%',
                                                     height: '100%',
                                                     border: 'none',
+                                                    borderRadius: '10px',
                                                 }}
                                                 src={`https://www.youtube.com/embed/${trailer.trailerKey}`}
                                                 title={`Trailer for movie ${trailer.movieId}`}
@@ -119,6 +120,7 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                                                     width: '100%',
                                                     height: '100%',
                                                     border: 'none',
+                                                    borderRadius: '10px',
                                                 }}
                                                 src={`https://www.youtube.com/embed/${trailer.trailerKey}`}
                                                 title={`Trailer for movie ${trailer.movieId}`}

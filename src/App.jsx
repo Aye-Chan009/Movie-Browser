@@ -4,6 +4,7 @@ import PopularCurrently from './PopularCurrently.jsx'
 import MovieDetails from './MovieDetails.jsx'
 import MovieNotFound from './MovieNotFound.jsx'
 import Hero from './HeroSection'
+import Footer from './Footer'
 import { Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
@@ -128,7 +129,7 @@ function App() {
           element={
             <PopularCurrently
               Movies={popularMovies}
-              heroText={"Movies Popular Currently"}  
+              heroText={"Currently Popular Movies"}  
             />}
         />
         <Route path="/search" 
@@ -149,7 +150,8 @@ function App() {
             )
           }
         />
-      </Routes>
+        </Routes>
+        <Footer/>
     </div>
   )
 }

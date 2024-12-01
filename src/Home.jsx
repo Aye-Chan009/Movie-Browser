@@ -1,6 +1,5 @@
-import Hero from './HeroSection.jsx';
+import HomeHero from './HomeHeroSection.jsx';
 import React, { useState, useEffect } from 'react';
-import Footer from './Footer';
 import Carousel from './Carousel.jsx';
 import GenreMovieCard from './GenreMovieCard.jsx';
 import { genres } from './assets/genres.jsx';
@@ -9,18 +8,15 @@ const accessKey = import.meta.env.VITE_Access_Key;
 //loading page
 //paganation
 //carousel fix
+//homepage herosection search bar
 //Footer fix
 //caching
-//Need to Itiate for each genres/production companies
 //what if movie is not yet released
 //404 page
 //Sometimes a search result doesn't have an image
 //there is no handler if there are no search results
 //Fix hero section
 //Make it pretty
-//actor/actress cards
-//fix backdrop
-//checkout TMDB and IMDB and try to copy them
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();
@@ -153,7 +149,7 @@ const Home = () => {
  
     return (
         <div>
-            <Hero text = "Home page hero section" />
+            <HomeHero text = "Home page hero section" />
             <div id="services" className="container py-5 bg-primary">
                 <h1 className="d-flex justify-content-center pb-5">Now Playing</h1>
                 <div>
@@ -181,7 +177,6 @@ const Home = () => {
                     )}
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 }

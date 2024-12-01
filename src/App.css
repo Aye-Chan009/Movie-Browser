@@ -11,30 +11,28 @@
     padding-top: 3rem;
 }
 
-.top .moviedetail-overlay {
+.moviedetail-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7); /* Dark background overlay */
+    background: rgba(0, 0, 0, 0.5); /* Dark background overlay */
     z-index: 1;
+    filter: blur(8px);
 }
 
-.top .moviedetail-poster {
-    z-index: 2;
-}
 
 .moviedetail-poster {
     width: 100%;
     max-width: 200px; /* Reduced poster size */
     max-height: 300px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.1),  /* Black shadow */
         0 0 12px rgba(255, 255, 255, 0.5); /* White shadow */
-    transition: transform 0.3s ease-in-out;
+    z-index: 2;
 }
 
 .words {
@@ -56,11 +54,45 @@
     font-weight: 400;
 }
 
-.moviedetail-card {
+/*.moviedetail-card {
     background-color: #fff;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+}*/
+
+.featuring-header h3 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    color: #007bff;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
 }
+
+profile-img {
+    border: 3px solid #fff;  /* Adding border around the profile picture */
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+div.feature-font-weight-bold {
+    font-size: 1.1rem;
+    color: white;
+    margin-top: 0.5rem;
+    text-align: left; /* Align the text to the left */
+    margin-left: -0.5rem;
+}
+
+/*.smallposter {
+    width: 100%;
+    max-width: 200px;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        0 0 12px rgba(255, 255, 255, 0.5);
+    z-index: 2;
+}*/
 
 /*Footer CSS */
 .footer {

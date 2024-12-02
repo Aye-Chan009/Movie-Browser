@@ -96,7 +96,6 @@ div.feature-font-weight-bold {
 
 /*Footer CSS */
 .footer {
-    background-color: #333;
     color: white;
     padding: 20px 0;
     text-align: center;
@@ -152,18 +151,18 @@ div.feature-font-weight-bold {
 .default-card {
     display: block;
     position: relative;
-    height: 40rem;
+    height: 35rem;
     z-index: 1;
     transition: opacity 0.8s ease, transform 0.8s ease; 
 }
 
 .default-card-text {
-    max-height: 10rem;
+    max-height: 5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 6;
-    line-clamp: 6;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     padding-right: 10px;
     margin-bottom: 0.1rem;
@@ -236,6 +235,15 @@ div.feature-font-weight-bold {
 #carouselExampleFade .carousel-item {
     transition: opacity 1s ease-in-out;
 }
+
+#carouselExampleFadeTrailers {
+    min-height: 23rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 39rem;
+}
+
 /*.carousel-item-title {
     width: 33.33%;
     display: 'flex';
@@ -264,6 +272,14 @@ div.feature-font-weight-bold {
     .hover-card-img {
         opacity: 0.4;
     }
+
+    #carouselExampleFadeTrailers {
+        min-height: 53rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 73rem;
+    }
 }
 
 /*@media for large screen*/
@@ -288,6 +304,7 @@ div.feature-font-weight-bold {
     .card-wrapper:hover .hover-card-img {
         opacity: 0.4;
     }
+
   }
 
 @media (max-width: 768px) {
@@ -314,5 +331,13 @@ div.feature-font-weight-bold {
         max-width: 7rem;
         padding-top: 0px;
         margin-bottom: 0px;
+    }
+
+    #carouselExampleFadeTrailers {
+        min-height: 36rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 49rem;
     }
 }

@@ -61,8 +61,9 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
   };
 
   return (
-    <div className='container bg-primary p-0'>
-      <nav className="navbar navbar-expand-lg bg-primary">
+    <div className="bg-primary">
+    <div className='container p-0'>
+      <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <Link className="navbar-brand fs-1" to="/" style={{ fontWeight: 'bold' }}>Movie Browser <div className="fs-6">by Aye Chan</div></Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -138,11 +139,12 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                     </ul>
                   )}
               </div>
-              <button ref={submitButtonRef} className="btn btn-outline-success ms-2" type="submit">Search</button>
+              <button ref={submitButtonRef} className="btn bg-dark btn-outline-success ms-2" type="submit">Search</button>
             </form>
           </div>
         </div>
       </nav>
+    </div>
     </div>
   )
 }

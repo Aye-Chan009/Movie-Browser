@@ -5,18 +5,15 @@ import GenreMovieCard from './GenreMovieCard.jsx';
 import { genres } from './assets/genres.jsx';
 const accessKey = import.meta.env.VITE_Access_Key;
 
-//loading page
+//if API return unsuccessful -> error page
 //paganation
-//carousel fix
-//homepage herosection search bar
+//homepage herosection call to action button
 //Footer fix
 //caching
-//what if movie is not yet released
-//404 page
-//Sometimes a search result doesn't have an image
-//there is no handler if there are no search results
-//Fix hero section
-//Make it pretty
+//spinner for loading
+//trailer not found at movie detail
+//Make it pretty / search button color / background img or color
+//static placeholder images
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();
@@ -150,8 +147,9 @@ const Home = () => {
     return (
         <div>
             <HomeHero text = "Home page hero section" />
-            <div id="services" className="container py-5 bg-primary">
-                <h1 className="d-flex justify-content-center pb-5">Now Playing</h1>
+            <div className='bg-primary'>
+            <div id="services" className="container p-0">
+                <div className="d-flex justify-content-center fs-1 pt-5 pb-5 px-3 m-0" style={{ fontWeight: 'bold' }}>Now Playing</div>
                 <div>
                     {NowPlaying.length > 0 ? (
 
@@ -160,15 +158,23 @@ const Home = () => {
                         <p>Loading Movies In Theaters...</p>
                     )}
                 </div>
-                <h1 className="d-flex justify-content-center pb-5">Trending Trailers for today</h1>
-                <div>
-                    {Trailer.length > 0 ? (
-                            <Carousel Trailer={chunkedTrailer} />
-                    ) : (
-                        <p>Loading Today's Trending Movies...</p>
-                    )}
-                </div>
-                <h1 className="d-flex justify-content-center pb-5">What to watch today?? : {genreOfTheDay.name}</h1>
+            </div>
+            </div>
+            <div className='bg-secondary'>
+            <div id="services" className="container p-0">
+                    <div className="d-flex justify-content-center fs-1 pt-5 pb-5 px-3 m-0 text-white" style={{ fontWeight: 'bold' }}>Trending Trailers for today</div>
+                    <div>
+                        {Trailer.length > 0 ? (
+                                <Carousel Trailer={chunkedTrailer} />
+                        ) : (
+                            <p>Loading Today's Trending Movies...</p>
+                        )}
+                    </div>
+            </div>
+            </div>
+            <div className='bg-light'>
+            <div id="services" className="container p-0">
+                <div className="d-flex justify-content-center fs-1 pt-5 pb-5 px-3 m-0" style={{ fontWeight: 'bold' }}>What to watch today?? : {genreOfTheDay.name}</div>
                 <div>
                     {TopRated.length > 0 ? (
                         <GenreMovieCard TopRated={TopRated}/>
@@ -176,6 +182,7 @@ const Home = () => {
                         <p>Loading Today's Movies...</p>
                     )}
                 </div>
+            </div>
             </div>
         </div>
     );

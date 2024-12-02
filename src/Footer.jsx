@@ -2,6 +2,7 @@ import './App.css';
 
 const Footer = () => {
   return (
+    <div className="bg-dark">
     <div className="footer container p-0">
       <div className="footer-content">
         <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
@@ -11,6 +12,7 @@ const Footer = () => {
           <a href="/terms" className="footer-link">Terms of Service</a>
         </div>
       </div>
+    </div>
     </div>
   );
 };

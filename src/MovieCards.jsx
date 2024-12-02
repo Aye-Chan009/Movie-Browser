@@ -8,7 +8,7 @@ const MovieCards =({movie}) => {
 
     return (
         <>
-            <div className="card-wrapper d-none d-lg-block">
+            <div className="card-wrapper d-none d-lg-block" style={{maxHeight: '35rem'}}>
                 <div className="card default-card">
                     <img src={posterUrl} className="card-img-top" alt={movie.original_title || 'No Title'}/>
                     <div className="card-body">

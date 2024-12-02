@@ -1,6 +1,30 @@
 import MovieCards from './MovieCards.jsx';
+import React, { useEffect } from 'react';
 
 const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
+
+    useEffect(() => {
+        const carouselElement = document.querySelector('#carouselExampleFadeMovies');
+        if (carouselElement) {
+            // Initialize the carousel manually using Bootstrap's Carousel constructor
+            const carousel = new window.bootstrap.Carousel(carouselElement, {
+                interval: 4000, // Set the interval if needed
+                ride: 'carousel', // Make sure it auto-rotates
+            });
+            carousel.cycle(); // Start the carousel
+        }
+
+        const carouselTrailers = document.querySelector('#carouselExampleFadeTrailers');
+        if (carouselTrailers) {
+            // Initialize the carousel for Trailers manually
+            const carousel = new window.bootstrap.Carousel(carouselTrailers, {
+                interval: 4000, // Set the interval for trailer carousel
+                ride: 'carousel', // Make sure it auto-rotates
+            });
+            carousel.cycle(); // Start the carousel
+        }
+        
+    }, []);
 
     return (
         <div>
@@ -10,9 +34,8 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                     id="carouselExampleFadeMovies"
                     className="carousel slide carousel-fade"
                     data-bs-ride="carousel"
-                    data-bs-interval="3000"
-                    style={{ maxHeight: "auto" }}
                 >
+                    
                     <div className="carousel-inner">
                         {chunkedMovies.map((chunk, index) => (
                             <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
@@ -36,24 +59,20 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                             </div>
                         ))}
                     </div>
-                    <button
-                        className="carousel-control-prev"
-                        type="button"
-                        data-bs-target="#carouselExampleFadeMovies"
-                        data-bs-slide="prev"
-                    >
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button
-                        className="carousel-control-next"
-                        type="button"
-                        data-bs-target="#carouselExampleFadeMovies"
-                        data-bs-slide="next"
-                    >
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </button>
+
+                    <div className="carousel-indicators mt-3">
+                        {chunkedMovies.map((chunk, index) => (
+                            <button
+                                key={index}
+                                type="button"
+                                data-bs-target="#carouselExampleFadeMovies"
+                                data-bs-slide-to={index}
+                                className={index === 0 ? 'active' : ''}
+                                aria-current={index === 0 ? 'true' : 'false'}
+                                aria-label={`Slide ${index + 1}`}
+                            ></button>
+                        ))}
+                    </div>
                 </div>
             ) : null}
 
@@ -63,8 +82,6 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                     id="carouselExampleFadeTrailers"
                     className="carousel slide carousel-fade"
                     data-bs-ride="carousel"
-                    data-bs-interval="3000"
-                    style={{ maxHeight: "auto" }}
                 >
                     <div className="carousel-inner">
                         {Trailer.map((trailerPair, index) => (
@@ -133,24 +150,19 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                             </div>
                         ))}
                     </div>
-                    <button
-                        className="carousel-control-prev"
-                        type="button"
-                        data-bs-target="#carouselExampleFadeTrailers"
-                        data-bs-slide="prev"
-                    >
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button
-                        className="carousel-control-next"
-                        type="button"
-                        data-bs-target="#carouselExampleFadeTrailers"
-                        data-bs-slide="next"
-                    >
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </button>
+                    <div className="carousel-indicators mt-3">
+                        {Trailer.map((trailerPair, index) => (
+                            <button
+                                key={index}
+                                type="button"
+                                data-bs-target="#carouselExampleFadeTrailers"
+                                data-bs-slide-to={index}
+                                className={index === 0 ? 'active' : ''}
+                                aria-current={index === 0 ? 'true' : 'false'}
+                                aria-label={`Slide ${index + 1}`}
+                            ></button>
+                        ))}
+                    </div>
                 </div>
             ) : null}
         </div>

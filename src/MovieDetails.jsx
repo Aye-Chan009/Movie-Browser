@@ -103,7 +103,7 @@ const MovieDetails = () => {
                 />
                 <div className="movie-details mb-3 pt-5">
                   <p><strong>Release Date:</strong> {movieDetail?.release_date || 'Release date Not Found'}</p>
-                  <p><strong>Runtime:</strong> {`${movieDetail?.runtime || '...'} min`}</p>
+                  <p><strong>Runtime:</strong> {movieDetail?.runtime ? `${movieDetail.runtime} min` : 'Coming Soon'}</p>
                   <p><strong>IMDb ID:</strong></p>
                   <p>
                      <a href={imdbURL} target="_blank" rel="noopener noreferrer">Visit IMDB</a>
@@ -145,8 +145,8 @@ const MovieDetails = () => {
                                       alt={`Profile for ${person.name}`}
                                       className="img-fluid shadow-lg rounded-circle profile-img"
                                       style={{
-                                          width: '7rem',  // Set the width to 10rem
-                                          height: '7rem', // Set the height to 10rem
+                                          width: '6rem',  // Set the width to 10rem
+                                          height: '5rem', // Set the height to 10rem
                                           objectFit: 'cover', // Ensures the image retains its aspect ratio
                                       }}
                                   />
@@ -156,8 +156,8 @@ const MovieDetails = () => {
                                       alt="Placeholder"
                                       className="img-fluid shadow-lg rounded-circle profile-img"
                                       style={{
-                                          width: '7rem',
-                                          height: '7rem',
+                                          width: '6rem',
+                                          height: '5rem',
                                           objectFit: 'cover',
                                       }}
                                   />

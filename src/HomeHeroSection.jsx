@@ -2,8 +2,9 @@ import './App.css';
 
 const HomeHero = () => {
     return (
+        <div className="bg-dark">
         <div className="container p-0">
-            <div className="backdropContainer bg-dark text-white py-5 px-3" style={{
+            <div className="backdropContainer bg-dark text-white pt-3 pb-3 m-0 px-3" style={{
             display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'center', 
@@ -15,7 +16,7 @@ const HomeHero = () => {
              </h1>
             </div>
         </div>
-    
+        </div>
     );
 }
 

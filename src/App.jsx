@@ -150,6 +150,7 @@ function App() {
             )
           }
         />
+        <Route path="*" element={<MovieNotFound/>} />
         </Routes>
         <Footer/>
     </div>

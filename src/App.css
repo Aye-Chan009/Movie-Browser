@@ -1,3 +1,12 @@
+.homeHeroSectionContainer {
+
+        justify-content: center; 
+        align-items: center; 
+        height: auto;
+        text-align: center;
+        border-radius: 10px;
+
+}
 /*Movie Detail CSS*/
 .top {
     position: relative;
@@ -237,11 +246,27 @@ div.feature-font-weight-bold {
 }
 
 #carouselExampleFadeTrailers {
-    min-height: 23rem;
+    min-height: 26rem;
 }
 
 #carouselExampleFadeMovies {
     min-height: 39rem;
+}
+
+/* Make indicator buttons dark */
+.carousel-indicators button {
+    background-color: #333; /* Dark color for inactive buttons */
+    border: 1px solid #666; /* Optional: Dark border for inactive buttons */
+}
+
+/* Change active indicator button color */
+.carousel-indicators button.active {
+    background-color: #555; /* Slightly lighter dark color for the active button */
+}
+
+/* Optional: Change hover color for indicators */
+.carousel-indicators button:hover {
+    background-color: #777; /* Lighter dark color on hover */
 }
 
 /*.carousel-item-title {
@@ -274,11 +299,11 @@ div.feature-font-weight-bold {
     }
 
     #carouselExampleFadeTrailers {
-        min-height: 53rem;
+        min-height: 55rem;
     }
     
     #carouselExampleFadeMovies {
-        min-height: 73rem;
+        min-height: 75rem;
     }
 }
 
@@ -334,10 +359,10 @@ div.feature-font-weight-bold {
     }
 
     #carouselExampleFadeTrailers {
-        min-height: 36rem;
+        min-height: 45rem;
     }
     
     #carouselExampleFadeMovies {
-        min-height: 49rem;
+        min-height: 60rem;
     }
 }

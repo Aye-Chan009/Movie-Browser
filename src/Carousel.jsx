@@ -61,6 +61,9 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                     </div>
 
                     <div className="carousel-indicators mt-3">
+                        <a class="carousel-control-prev" href="#carouselExampleFadeMovies" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
+                        </a>
                         {chunkedMovies.map((chunk, index) => (
                             <button
                                 key={index}
@@ -70,8 +73,14 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                                 className={index === 0 ? 'active' : ''}
                                 aria-current={index === 0 ? 'true' : 'false'}
                                 aria-label={`Slide ${index + 1}`}
+                                style={{
+                                    backgroundColor: index === 0 ? '#555' : '#333', // Active and inactive button colors
+                                }}
                             ></button>
                         ))}
+                        <a class="carousel-control-next" href="#carouselExampleFadeMovies" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
+                        </a>
                     </div>
                 </div>
             ) : null}
@@ -127,7 +136,7 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                                                 width: '100%',
                                                 height: '0',
                                                 paddingBottom: '56.25%',
-                                                margin: "1%",
+                                                
                                             }}>
                                             <iframe
                                                 style={{
@@ -151,6 +160,9 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                         ))}
                     </div>
                     <div className="carousel-indicators mt-3">
+                        <a class="carousel-control-prev" href="#carouselExampleFadeTrailers"  role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
+                        </a>
                         {Trailer.map((trailerPair, index) => (
                             <button
                                 key={index}
@@ -160,8 +172,14 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                                 className={index === 0 ? 'active' : ''}
                                 aria-current={index === 0 ? 'true' : 'false'}
                                 aria-label={`Slide ${index + 1}`}
+                                style={{
+                                    backgroundColor: index === 0 ? '#555' : '#333', // Active and inactive button colors
+                                }}
                             ></button>
                         ))}
+                        <a class="carousel-control-next" href="#carouselExampleFadeTrailers" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
+                        </a>
                     </div>
                 </div>
             ) : null}

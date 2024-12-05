@@ -61,7 +61,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
   };
 
   return (
-    <div className="bg-primary">
+    <div className="bg-light">
     <div className='container p-0'>
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
@@ -139,7 +139,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                     </ul>
                   )}
               </div>
-              <button ref={submitButtonRef} className="btn bg-dark btn-outline-success ms-2" type="submit">Search</button>
+              <button ref={submitButtonRef} className="btn btn-outline-dark ms-2" type="submit">Search</button>
             </form>
           </div>
         </div>

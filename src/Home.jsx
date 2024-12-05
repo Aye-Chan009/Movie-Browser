@@ -7,12 +7,9 @@ const accessKey = import.meta.env.VITE_Access_Key;
 
 //if API return unsuccessful -> error page
 //paganation
-//homepage herosection call to action button
 //Footer fix
 //caching
 //spinner for loading
-//trailer not found at movie detail
-//Make it pretty / search button color / background img or color
 //static placeholder images
 
 const isReleaseDateInPast = (releaseDate) => {
@@ -85,8 +82,10 @@ const Home = () => {
             if (Trending.length === 0) {
                 return; 
             }
+        
+        const first16TrendingMovies = Trending.slice(0, 16);
     
-            const trailerPromises = Trending.map((movie) => fetch(`https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`, {
+            const trailerPromises = first16TrendingMovies.map((movie) => fetch(`https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`, {
                 method: 'GET',
                 headers: {
                     accept: 'application/json',
@@ -147,9 +146,9 @@ const Home = () => {
     return (
         <div>
             <HomeHero text = "Home page hero section" />
-            <div className='bg-primary'>
+            <div className='bg-light'>
             <div id="services" className="container p-0">
-                <div className="d-flex justify-content-center fs-1 pt-5 pb-5 px-3 m-0" style={{ fontWeight: 'bold' }}>Now Playing</div>
+                <div className="d-flex justify-content-center fs-1 pt-5 pb-5 px-3 m-0 text-dark" style={{ fontWeight: 'bold' }}>Now Playing</div>
                 <div>
                     {NowPlaying.length > 0 ? (
 
@@ -158,18 +157,20 @@ const Home = () => {
                         <p>Loading Movies In Theaters...</p>
                     )}
                 </div>
+                <hr/>
             </div>
             </div>
-            <div className='bg-secondary'>
+            <div className='bg-light'>
             <div id="services" className="container p-0">
-                    <div className="d-flex justify-content-center fs-1 pt-5 pb-5 px-3 m-0 text-white" style={{ fontWeight: 'bold' }}>Trending Trailers for today</div>
-                    <div>
-                        {Trailer.length > 0 ? (
-                                <Carousel Trailer={chunkedTrailer} />
-                        ) : (
-                            <p>Loading Today's Trending Movies...</p>
-                        )}
-                    </div>
+                <div className="d-flex justify-content-center fs-1 pt-5 pb-5 px-3 m-0 text-dark" style={{ fontWeight: 'bold' }}>Trending Trailers for today</div>
+                <div>
+                    {Trailer.length > 0 ? (
+                            <Carousel Trailer={chunkedTrailer} />
+                    ) : (
+                        <p>Loading Today's Trending Movies...</p>
+                    )}
+                </div>
+                <hr/>
             </div>
             </div>
             <div className='bg-light'>

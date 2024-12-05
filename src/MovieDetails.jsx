@@ -87,7 +87,7 @@ const MovieDetails = () => {
     const posterUrl = movieDetail.poster_path ? `https://image.tmdb.org/t/p/w500${movieDetail.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
     const backDropUrl = movieDetail.backdrop_path ? `https://image.tmdb.org/t/p/w1280${movieDetail.backdrop_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
     const imdbURL = movieDetail.imdb_id ? `https://www.imdb.com/title/${movieDetail.imdb_id}` : 'No IMDB Link Found!!';
-    const officialWebsite = movieDetail.homepage ? `${movieDetail.homepage}` : 'No Official Website Found!!';
+    const tmdbRating = movieDetail.vote_average ? `${movieDetail.vote_average}` : 'No Rating Yet';
     
     return (
       <div className="container p-0">
@@ -101,7 +101,7 @@ const MovieDetails = () => {
                   alt={`Poster for ${movieDetail.original_title}`}
                   className="img-fluid shadow-lg rounded"
                 />
-                <div className="movie-details mb-3 pt-5">
+                <div className="movie-details mb-3 pt-4">
                   <p><strong>Release Date:</strong> {movieDetail?.release_date || 'Release date Not Found'}</p>
                   <p><strong>Runtime:</strong> {movieDetail?.runtime ? `${movieDetail.runtime} min` : 'Coming Soon'}</p>
                   <p><strong>IMDb ID:</strong></p>
@@ -110,9 +110,9 @@ const MovieDetails = () => {
                   </p>
                 </div>
                 <div className="official-links mt-3">
-                  <p><strong>Official Website:</strong></p>
+                  <p><strong>TMDB Rating:</strong></p>
                   <p>
-                    <a href={officialWebsite} target="_blank" rel="noopener noreferrer">Visit Official Website</a>
+                    {tmdbRating}
                   </p>
                 </div>
               </div>
@@ -125,7 +125,7 @@ const MovieDetails = () => {
                 <h3 className="display-4 text-primary" style={{ height: '4rem' }}>
                   <em>{movieDetail?.tagline || ''}</em></h3>
                 <div className="overview mb-4" style={{ maxHeight: '9rem', overflowY: 'auto', height: '9rem' }}>
-                  <p className="lead">{movieDetail?.overview || 'Overview Not Found'}</p>
+                  <p className="lead">{movieDetail?.overview || ''}</p>
                 </div>
                 <div className="featuring-section">
                   <div className="featuring-header my-4">
@@ -205,7 +205,23 @@ const MovieDetails = () => {
                 </div>
                 ))
               ) : (
-                <p>No Trailer Video Found</p>
+                <div style={{
+                  padding: '2rem',
+                  backgroundColor: '#f8d7da',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  color: '#721c24',
+                  textAlign: 'center',
+                  maxWidth: '500px',
+                  margin: '2rem auto',
+                  fontFamily: "'Roboto', sans-serif",
+                }}>
+                  <i className="fas fa-video-slash" style={{ fontSize: '3rem', marginBottom: '1rem', color: '#721c24' }}></i>
+                  <h4 style={{ fontSize: '1.5rem', fontWeight: '500' }}>Oops! No Trailer Found</h4>
+                  <p style={{ fontSize: '1rem', marginTop: '0.5rem' }}>
+                    Sorry, we couldn't find a trailer for this movie in TMDB database!!!
+                  </p>
+                </div>
               )}
             </div>
           </div>
@@ -297,7 +313,7 @@ const MovieDetails = () => {
             color: '#fff',
           }}>
             <p style={{ fontSize: '1.2rem', fontWeight: '400' }}>
-              {movieDetail?.overview || 'Overview Not Found'}
+              {movieDetail?.overview || ''}
             </p>
           </div>
 
@@ -308,7 +324,7 @@ const MovieDetails = () => {
             <p><strong>Release Date</strong></p> 
             <p>{movieDetail?.release_date || 'Release date Not Found'}</p>
             <p><strong>Runtime</strong></p>
-            <p>{`${movieDetail?.runtime || '...'} min`}</p>
+            <p><strong>Runtime:</strong> {movieDetail?.runtime ? `${movieDetail.runtime} min` : 'Coming Soon'}</p>
             <p><strong>IMDb ID:</strong></p>
             <p>
               <a href={imdbURL} target="_blank" rel="noopener noreferrer" style={{
@@ -319,15 +335,9 @@ const MovieDetails = () => {
                 Visit IMDB
               </a>
             </p>
-            <p><strong>Official Website:</strong></p>
+            <p><strong>TMDB Rating:</strong></p>
             <p>
-              <a href={officialWebsite} target="_blank" rel="noopener noreferrer" style={{
-                textDecoration: 'none',
-                color: '#007bff',
-                fontWeight: '600',
-              }}>
-                Visit Official Website
-              </a>
+              {tmdbRating}
             </p>
           </div>
 
@@ -403,150 +413,26 @@ const MovieDetails = () => {
                 </div>
               ))
             ) : (
-              <p>No Trailer Video Found</p>
+              <div style={{
+                padding: '2rem',
+                backgroundColor: '#f8d7da',
+                borderRadius: '8px',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                color: '#721c24',
+                textAlign: 'center',
+                maxWidth: '500px',
+                margin: '2rem auto',
+                fontFamily: "'Roboto', sans-serif",
+              }}>
+                <i className="fas fa-video-slash" style={{ fontSize: '3rem', marginBottom: '1rem', color: '#721c24' }}></i>
+                <h4 style={{ fontSize: '1.5rem', fontWeight: '500' }}>Oops! No Trailer Found</h4>
+                <p style={{ fontSize: '1rem', marginTop: '0.5rem' }}>
+                  Sorry, we couldn't find a trailer for this movie in TMDB database!
+                </p>
+              </div>
             )}
           </div>
         </div>
-
-       {/*} <div className="d-block d-lg-none">
-          <div style={{ 
-            backgroundImage: `url(${backDropUrl})`, 
-            height: '35rem',
-            position: 'relative',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',}}>
-          <div 
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              background: 'rgba(0, 0, 0, 0.5)', // Dark overlay
-              filter: 'blur(8px)', // Apply blur effect to the background
-              zIndex: 1, // Keeps the overlay on top of the image
-            }}>
-          </div>
-          <div className="d-flex flex-column align-items-center" style={{
-              position: 'relative',
-              zIndex: 2, // Content is above the overlay
-              width: "100%",
-              height: "80%",
-              paddingTop: "2rem"
-            }}>
-              <img
-                src={posterUrl}
-                alt={`Poster for ${movieDetail.original_title}`}
-                className="img-fluid rounded smallposter"
-              />
-              <div className="text-center mt-3">
-                <h1 style={{ 
-                  fontSize: "2.5rem",
-                  fontWeight: "700",
-                  marginBottom: "1rem",
-                  textShadow: "2px 2px 5px rgba(0, 0, 0, 0.6",
-                  zIndex: "2",
-                  color: "#fff" }}>
-                {movieDetail?.original_title || 'Movie Not Found'}</h1>
-                <h3 style={{
-                  marginTop: "0.5rem",
-                  fontFamily: "'Helvetica Neue', sans-serif",
-                  fontWeight: "400",
-                  color: "#007bff",
-                  fontSize: "1.5rem",
-                  marginBottom: "1.5rem",
-                  textShadow: "2px 2px 5px rgba(0, 0, 0, 0.6",
-                  fontStyle: "italic"
-                }}>
-                <em>{movieDetail?.tagline || ''}</em></h3>
-              </div>
-            </div>
-          </div>
-          <div className='p-5 text-center bg-primary'>
-            <p className="lead">{movieDetail?.overview || 'Overview Not Found'}</p>
-          </div>
-          <div className="text-center bg-secondary">
-            <p><strong>Release Date</strong></p> 
-            <p>{movieDetail?.release_date || 'Release date Not Found'}</p>
-            <p><strong>Runtime</strong></p>
-            <p>{`${movieDetail?.runtime || '...'} min`}</p>
-            <p><strong>IMDb ID:</strong></p>
-            <p>
-                <a href={imdbURL} target="_blank" rel="noopener noreferrer">Visit IMDB</a>
-            </p>
-            <p><strong>Official Website:</strong></p>
-            <p>
-              <a href={officialWebsite} target="_blank" rel="noopener noreferrer">Visit Official Website</a>
-            </p>
-          </div>
-          <div className="featuring-section pt-5 pb-5 bg-primary">
-            <div className="row justify-content-center" 
-            style={{    
-              gap: '1rem'}}>
-                {castDetail.map((person) => (
-                    <div key={person.id} className="col-3">
-                        {person.profile_path ? (
-                            <img
-                                src={`https://image.tmdb.org/t/p/w1280${person.profile_path}`}
-                                alt={`Profile for ${person.name}`}
-                                className="img-fluid shadow-lg rounded-circle profile-img"
-                                style={{
-                                    width: '7rem',  // Set the width to 10rem
-                                    height: '7rem', // Set the height to 10rem
-                                    objectFit: 'cover', // Ensures the image retains its aspect ratio
-                                }}
-                            />
-                        ) : (
-                            <img
-                                src="https://via.placeholder.com/150x150?text=No+Image"
-                                alt="Placeholder"
-                                className="img-fluid shadow-lg rounded-circle profile-img"
-                                style={{
-                                    width: '7rem',
-                                    height: '7rem',
-                                    objectFit: 'cover',
-                                }}
-                            />
-                        )}
-                        <div className="mt-2 text-center feature-font-weight-bold">{person.name}</div>
-                    </div>
-                ))}
-            </div>
-          </div>
-          <div className="justify-content-center align-items-center">
-            {trailer.length > 0 ? (
-              trailer.map((video) => (
-                <div
-                key={video.id} style={{
-                  position: 'relative',
-                  width: '95%', // Adjust width to 90% to leave space on left and right
-                  maxWidth: '600px',
-                  height: '0',
-                  paddingBottom: '56.25%',
-                  margin: '0 auto',
-                  marginTop: '1rem',
-                  marginBottom: '1rem',
-              }}>
-                  <iframe
-                           style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            border: 'none',
-                        }}
-                      src={`https://www.youtube.com/embed/${video.key}`}
-                      title={`Trailer for ${video.key}`}
-                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen/>
-              </div>
-              ))
-            ) : (
-              <p>No Trailer Video Found</p>
-            )}
-          </div>
-        </div>*/}
       </div>
     );
 };

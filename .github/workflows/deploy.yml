@@ -28,6 +28,8 @@ jobs:
         run: |
           npm install
           npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_Access_Key }} 
 
       # Step 4: Sync build folder to S3
       - name: Sync build folder to S3

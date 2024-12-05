@@ -14,7 +14,7 @@ const HomeHero = () => {
                             letterSpacing: '2px',
                             color: '#f9a825'
                         }}>
-                        Welcome to My Movie Browser!
+                        Welcome to my Movie Browser!
                     </h1>
                     
                     <p className="text" 

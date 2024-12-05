@@ -355,8 +355,8 @@ const MovieDetails = () => {
                       src={`https://image.tmdb.org/t/p/w1280${person.profile_path}`}
                       alt={`Profile for ${person.name}`}
                       style={{
-                        width: '7rem',  
-                        height: '7rem', 
+                        width: '5rem',  
+                        height: '5rem', 
                         borderRadius: '50%',
                         objectFit: 'cover',
                         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
@@ -367,8 +367,8 @@ const MovieDetails = () => {
                       src="https://via.placeholder.com/150x150?text=No+Image"
                       alt="Placeholder"
                       style={{
-                        width: '7rem',
-                        height: '7rem',
+                        width: '5rem',
+                        height: '5rem',
                         borderRadius: '50%',
                         objectFit: 'cover',
                         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
@@ -376,7 +376,7 @@ const MovieDetails = () => {
                     />
                   )}
                   {/* Person's Name */}
-                  <div style={{ marginTop: '1rem', fontWeight: 'bold' }}>
+                  <div style={{ marginLeft: '0.5rem', marginTop: '1rem', fontWeight: 'bold' }}>
                     {person.name}
                   </div>
                 </div>

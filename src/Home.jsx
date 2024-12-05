@@ -83,7 +83,7 @@ const Home = () => {
                 return; 
             }
         
-        const first16TrendingMovies = Trending.slice(0, 16);
+        const first16TrendingMovies = Trending.slice(0, 10);
     
             const trailerPromises = first16TrendingMovies.map((movie) => fetch(`https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`, {
                 method: 'GET',

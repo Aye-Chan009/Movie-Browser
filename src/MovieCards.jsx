@@ -43,12 +43,12 @@ const MovieCards =({movie}) => {
                             wordWrap: 'break-word',
                             overflowWrap: 'break-word',
                             paddingLeft: '2%'}}>
-                            <h5 className="card-title fs-6">{movie.original_title || 'No Title Available'}</h5>
+                            <h5 className="card-title fs-6 small-title">{movie.original_title || 'No Title Available'}</h5>
                             <p className="card-text default-card-text">
                             {movie.overview || 'No overview available.'}
                             </p>
                             <div className="text-end">
-                                <Link to={movieURL} className="btn btn-primary">
+                                <Link to={movieURL} className="btn btn-primary small-btn">
                                 Show Detail
                                 </Link>
                             </div>

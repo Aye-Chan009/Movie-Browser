@@ -245,14 +245,6 @@ div.feature-font-weight-bold {
     transition: opacity 1s ease-in-out;
 }
 
-#carouselExampleFadeTrailers {
-    min-height: 26rem;
-}
-
-#carouselExampleFadeMovies {
-    min-height: 39rem;
-}
-
 /* Make indicator buttons dark */
 .carousel-indicators button {
     background-color: #333; /* Dark color for inactive buttons */
@@ -330,9 +322,89 @@ div.feature-font-weight-bold {
         opacity: 0.4;
     }
 
+    #carouselExampleFadeTrailers {
+        min-height: 22rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 40rem;
+    }
+
   }
 
-@media (max-width: 768px) {
+@media (max-width: 769px) {
+
+    .default-card-text {
+        font-size: 0.8rem;
+        max-height: 8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+        padding-right: 10px;
+        margin-bottom: 1rem;
+    }
+
+    #carouselExampleFadeTrailers {
+        min-height: 55rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 75rem;
+    }
+}
+
+@media (max-width: 691px) {
+
+    .default-card-text {
+        font-size: 0.8rem;
+        max-height: 8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+        padding-right: 10px;
+        margin-bottom: 0.3rem;
+    }
+
+    #carouselExampleFadeTrailers {
+        min-height: 43rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 58rem;
+    }
+}
+
+@media (max-width: 668px) {
+
+    .default-card-text {
+        font-size: 0.8rem;
+        max-height: 8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        padding-right: 10px;
+        margin-bottom: 1rem;
+    }
+
+    #carouselExampleFadeTrailers {
+        min-height: 43rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 58rem;
+    }
+}
+
+@media (max-width: 442px) {
 
     .default-card-text {
         font-size: 0.8rem;
@@ -346,20 +418,49 @@ div.feature-font-weight-bold {
         padding-right: 10px;
         margin-bottom: 1rem;
     }
-    .card-title {
-        max-height: 2rem;
-        padding-top: 0px;
-        margin-top: 0px;
+
+    #carouselExampleFadeTrailers {
+        min-height: 35rem;
     }
-    .btn-primary {
-        max-height: 2rem;
-        max-width: 7rem;
-        padding-top: 0px;
-        margin-bottom: 0px;
+    
+    #carouselExampleFadeMovies {
+        min-height: 47rem;
+    }
+}
+
+@media (max-width: 432px) {
+
+    .default-card-text {
+        font-size: 0.8rem;
+        max-height: 8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        padding-right: 10px;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 391px) {
+
+    .default-card-text {
+        font-size: 0.8rem;
+        max-height: 8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        padding-right: 10px;
+        margin-bottom: 0.3rem;
     }
 
     #carouselExampleFadeTrailers {
-        min-height: 30rem;
+        min-height: 31rem;
     }
     
     #carouselExampleFadeMovies {

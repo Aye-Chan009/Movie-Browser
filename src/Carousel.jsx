@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
 
-    useEffect(() => {
+   useEffect(() => {
         const carouselElement = document.querySelector('#carouselExampleFadeMovies');
         if (carouselElement) {
             // Initialize the carousel manually using Bootstrap's Carousel constructor
@@ -61,8 +61,8 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                     </div>
 
                     <div className="carousel-indicators mt-3">
-                        <a class="carousel-control-prev" href="#carouselExampleFadeMovies" role="button" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
+                        <a className="carousel-control-prev" href="#carouselExampleFadeMovies" role="button" data-bs-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
                         </a>
                         {chunkedMovies.map((chunk, index) => (
                             <button
@@ -78,8 +78,8 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                                 }}
                             ></button>
                         ))}
-                        <a class="carousel-control-next" href="#carouselExampleFadeMovies" role="button" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
+                        <a className="carousel-control-next" href="#carouselExampleFadeMovies" role="button" data-bs-slide="next">
+                            <span className="carousel-control-next-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
                         </a>
                     </div>
                 </div>
@@ -136,6 +136,7 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                                                 width: '100%',
                                                 height: '0',
                                                 paddingBottom: '56.25%',
+                                                marginBottom: "0.5rem"
                                                 
                                             }}>
                                             <iframe
@@ -160,8 +161,8 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                         ))}
                     </div>
                     <div className="carousel-indicators mt-3">
-                        <a class="carousel-control-prev" href="#carouselExampleFadeTrailers"  role="button" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
+                        <a className="carousel-control-prev" href="#carouselExampleFadeTrailers"  role="button" data-bs-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
                         </a>
                         {Trailer.map((trailerPair, index) => (
                             <button
@@ -177,8 +178,8 @@ const Carousel = ({ chunkedMovies = [], Trailer = [] }) => {
                                 }}
                             ></button>
                         ))}
-                        <a class="carousel-control-next" href="#carouselExampleFadeTrailers" role="button" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
+                        <a className="carousel-control-next" href="#carouselExampleFadeTrailers" role="button" data-bs-slide="next">
+                            <span className="carousel-control-next-icon" aria-hidden="true" style={{ filter: 'brightness(0) opacity(1)' }}></span>
                         </a>
                     </div>
                 </div>

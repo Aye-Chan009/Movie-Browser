@@ -1,3 +1,5 @@
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
 import NavBar from './NavBar.jsx'
 import Home from './Home.jsx'
 import PopularCurrently from './PopularCurrently.jsx'
@@ -9,6 +11,11 @@ import { Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
 const accessKey = import.meta.env.VITE_Access_Key;
+/*try {
+  Amplify.configure(awsconfig);
+} catch (error) {
+  console.error("Amplify configuration error:", error);
+}*/
 
 function App() {
 

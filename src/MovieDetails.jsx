@@ -106,7 +106,15 @@ const MovieDetails = () => {
                   <p><strong>Runtime:</strong> {movieDetail?.runtime ? `${movieDetail.runtime} min` : 'Coming Soon'}</p>
                   <p><strong>IMDb ID:</strong></p>
                   <p>
-                     <a href={imdbURL} target="_blank" rel="noopener noreferrer">Visit IMDB</a>
+                    <a href={imdbURL} target="_blank" rel="noopener noreferrer" 
+                    style={{
+                      textDecoration: 'none',
+                      color: '#007bff',
+                      fontWeight: '600',
+                    }}
+                    aria-label="Visit IMDb">
+                      Visit IMDB
+                    </a>
                   </p>
                 </div>
                 <div className="official-links mt-3">
@@ -163,7 +171,7 @@ const MovieDetails = () => {
                                   />
                               )}
                               {/* Person's Name */}
-                              <div className="mt-2 text-center feature-font-weight-bold" style={{ marginLeft: '-0.5rem', fontWeight: 'bold' }}>{person.name}</div>
+                              <div className="mt-2 text-center feature-font-weight-bold" style={{ marginLeft: '0.5rem', fontWeight: 'bold' }}>{person.name}</div>
                           </div>
                       ))}
                   </div>
@@ -257,7 +265,7 @@ const MovieDetails = () => {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                background: 'rgba(0, 0, 0, 0.5)', // Dark overlay
+                background: 'rgba(0, 0, 0, 0.8)', // Dark overlay
                 filter: 'blur(8px)', // Apply blur effect to the background
                 zIndex: 1, // Keeps the overlay on top of the image
               }}>
@@ -376,7 +384,7 @@ const MovieDetails = () => {
                     />
                   )}
                   {/* Person's Name */}
-                  <div style={{ marginLeft: '0.5rem', marginTop: '1rem', fontWeight: 'bold' }}>
+                  <div style={{ marginLeft: '0.2rem', marginTop: '1rem', fontWeight: 'bold' }}>
                     {person.name}
                   </div>
                 </div>

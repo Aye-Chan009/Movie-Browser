@@ -26,7 +26,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Dark background overlay */
+    background: rgba(0, 0, 0, 0.8); /* Dark background overlay */
     z-index: 1;
     filter: blur(8px);
 }
@@ -300,6 +300,59 @@ div.feature-font-weight-bold {
 }
 
 /*@media for large screen*/
+@media (min-width: 1709px) {
+
+    #carouselExampleFadeTrailers {
+        min-height: 27rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 40rem;
+    }
+}
+
+@media (max-width: 1708px) {
+
+    #carouselExampleFadeTrailers {
+        min-height: 27rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 40rem;
+    }
+}
+
+@media (max-width: 1181px) {
+
+    #carouselExampleFadeTrailers {
+        min-height: 21rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 40rem;
+    }
+}
+
+@media (max-width: 102px) {
+
+    #carouselExampleFadeTrailers {
+        min-height: 22rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 42rem;
+    }
+}
+
+@media (max-width: 992px) {
+    #carouselExampleFadeTrailers {
+        min-height: 57rem;
+    }
+
+    #carouselExampleFadeMovies {
+        min-height: 75rem;
+    }
+}
 
 @media (min-width: 992px) {
 
@@ -320,14 +373,6 @@ div.feature-font-weight-bold {
     }
     .card-wrapper:hover .hover-card-img {
         opacity: 0.4;
-    }
-
-    #carouselExampleFadeTrailers {
-        min-height: 22rem;
-    }
-    
-    #carouselExampleFadeMovies {
-        min-height: 40rem;
     }
 
   }
@@ -353,6 +398,17 @@ div.feature-font-weight-bold {
     
     #carouselExampleFadeMovies {
         min-height: 75rem;
+    }
+}
+
+@media (max-width: 741px) {
+
+    #carouselExampleFadeTrailers {
+        min-height: 43rem;
+    }
+    
+    #carouselExampleFadeMovies {
+        min-height: 58rem;
     }
 }
 

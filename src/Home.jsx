@@ -11,6 +11,12 @@ const accessKey = import.meta.env.VITE_Access_Key;
 //caching
 //spinner for loading
 //static placeholder images
+//search by actor
+//actor detail page
+//log in/out and create user
+//user reviews
+//favicon
+
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();

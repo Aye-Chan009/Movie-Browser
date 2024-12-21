@@ -1,172 +1,446 @@
 .homeHeroSectionContainer {
 
-        justify-content: center; 
-        align-items: center; 
-        height: auto;
-        text-align: center;
-        border-radius: 10px;
+    justify-content: center; 
+    align-items: center; 
+    height: auto;
+    text-align: center;
+    border-radius: 10px;
 
 }
 /*Movie Detail CSS*/
 .top {
-    position: relative;
-    display: flex;
-    justify-content: flex-start; /* Aligns content to the left */
-    height: 40rem; /* Adjusted height */
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding-left: 2rem;
-    padding-top: 3rem;
+position: relative;
+display: flex;
+justify-content: flex-start; /* Aligns content to the left */
+height: 40rem; /* Adjusted height */
+background-size: cover;
+background-position: center;
+color: white;
+padding-left: 2rem;
+padding-top: 3rem;
 }
 
 .moviedetail-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Dark background overlay */
-    z-index: 1;
-    filter: blur(8px);
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0, 0, 0, 0.8); /* Dark background overlay */
+z-index: 1;
+filter: blur(8px);
 }
 
 
 .moviedetail-poster {
-    width: 100%;
-    max-width: 200px; /* Reduced poster size */
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.1),  /* Black shadow */
-        0 0 12px rgba(255, 255, 255, 0.5); /* White shadow */
-    z-index: 2;
+width: 100%;
+max-width: 200px; /* Reduced poster size */
+max-height: 300px;
+object-fit: cover;
+border-radius: 12px;
+box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),  /* Black shadow */
+    0 0 12px rgba(255, 255, 255, 0.5); /* White shadow */
+z-index: 2;
 }
 
 .words {
-    z-index: 2;
-    color: #fff;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+z-index: 2;
+color: #fff;
+text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 .movie-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-    margin-bottom: 0.5rem;
+font-size: 2.5rem;
+font-weight: 700;
+text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+margin-bottom: 0.5rem;
 }
 
 .display-4 {
-    font-size: 1.8rem;
-    font-style: italic;
-    font-weight: 400;
+font-size: 1.8rem;
+font-style: italic;
+font-weight: 400;
 }
 
 /*.moviedetail-card {
-    background-color: #fff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+background-color: #fff;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
 }*/
 
 .featuring-header h3 {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-weight: 700;
-    color: #007bff;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+font-family: 'Helvetica Neue', sans-serif;
+font-weight: 700;
+color: #007bff;
+font-size: 2rem;
+margin-bottom: 1.5rem;
 }
 
 profile-img {
-    border: 3px solid #fff;  /* Adding border around the profile picture */
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+border: 3px solid #fff;  /* Adding border around the profile picture */
+border-radius: 50%;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 div.feature-font-weight-bold {
-    font-size: 1.1rem;
-    color: white;
-    margin-top: 0.5rem;
-    text-align: left; /* Align the text to the left */
-    margin-left: -0.5rem;
+font-size: 1.1rem;
+color: white;
+margin-top: 0.5rem;
+text-align: left; /* Align the text to the left */
+margin-left: -0.5rem;
 }
 
 /*.smallposter {
-    width: 100%;
-    max-width: 200px;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.1),
-        0 0 12px rgba(255, 255, 255, 0.5);
-    z-index: 2;
+width: 100%;
+max-width: 200px;
+max-height: 300px;
+object-fit: cover;
+border-radius: 8px;
+box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    0 0 12px rgba(255, 255, 255, 0.5);
+z-index: 2;
 }*/
 
 /*Footer CSS */
 .footer {
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-  }
-  
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .footer-links {
-    margin-top: 10px;
-  }
-  
-  .footer-link {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-  }
-  
-  .footer-link:hover {
-    text-decoration: underline;
-  }
-  
+color: white;
+padding: 20px 0;
+text-align: center;
+position: relative;
+bottom: 0;
+width: 100%;
+}
+
+.footer-content {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+}
+
+.footer-links {
+margin-top: 10px;
+}
+
+.footer-link {
+color: #fff;
+text-decoration: none;
+margin: 0 15px;
+}
+
+.footer-link:hover {
+text-decoration: underline;
+}
+
 /*HeroSection CSS*/
 .backdropContainer {
-    position: relative;
-    z-index: 100;
+position: relative;
+z-index: 100;
 }
 
 .backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.3;
-    z-index: -1;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-size: cover;
+background-position: center;
+opacity: 0.3;
+z-index: -1;
 }
 
 .text {
-    position: relative;
-    z-index: 200;
+position: relative;
+z-index: 200;
 }
 
 /*MovieCards CSS*/
 .default-card {
-    display: block;
-    position: relative;
-    height: 35rem;
-    z-index: 1;
-    transition: opacity 0.8s ease, transform 0.8s ease; 
+display: block;
+position: relative;
+height: 35rem;
+z-index: 1;
+transition: opacity 0.8s ease, transform 0.8s ease; 
 }
 
 .default-card-text {
-    max-height: 5rem;
+max-height: 5rem;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 3;
+line-clamp: 3;
+-webkit-box-orient: vertical;
+padding-right: 10px;
+margin-bottom: 0.1rem;
+}
+
+.hover-card {
+display: block;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 2;
+background-color: rgba(0, 0, 0, 0.6);
+color: white;
+opacity: 0;
+transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.8s ease;
+transform: scale(1.04); 
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+}
+
+.hover-card-img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center;
+transition: opacity 0.3s ease;
+}
+
+.hover-card-text {
+width: 100%;
+height: auto;
+max-height: 75%;
+overflow-y: auto;
+}
+
+
+.card-body {
+padding: 1rem;
+background-color: white;
+}
+
+.card-img-top {
+width: 100%;
+object-fit: cover;
+}
+
+.card-img-overlay {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+padding: 1rem;
+background-color: rgba(0, 0, 0, 0.6);
+color: white;
+}
+
+.card-title, .card-text {
+z-index: 3;
+}
+
+/*NavBar CSS*/
+.navbar-collapse .search-form {
+width: 100%;
+justify-content: flex-end;
+}
+
+/*Carousel CSS*/
+#carouselExampleFade .carousel-item {
+transition: opacity 1s ease-in-out;
+}
+
+/* Make indicator buttons dark */
+.carousel-indicators button {
+background-color: #333; /* Dark color for inactive buttons */
+border: 1px solid #666; /* Optional: Dark border for inactive buttons */
+}
+
+/* Change active indicator button color */
+.carousel-indicators button.active {
+background-color: #555; /* Slightly lighter dark color for the active button */
+}
+
+/* Optional: Change hover color for indicators */
+.carousel-indicators button:hover {
+background-color: #777; /* Lighter dark color on hover */
+}
+
+/*.carousel-item-title {
+width: 33.33%;
+display: 'flex';
+justify-content: 'center';
+}*/
+
+/*@media for small screen*/
+@media (max-width: 991px) {
+
+.navbar-collapse.collapsing .search-form,
+.navbar-collapse.collapse .search-form {
+  justify-content: flex-end; 
+}
+.default-card-text {
+    font-size: 0.8rem;
+    max-height: 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    line-clamp: 7;
+    -webkit-box-orient: vertical;
+    padding-right: 10px;
+    margin-bottom: 1rem;
+}
+.hover-card-img {
+    opacity: 0.4;
+}
+
+#carouselExampleFadeTrailers {
+    min-height: 55rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 75rem;
+}
+}
+
+/*@media for large screen*/
+@media (min-width: 1709px) {
+
+#carouselExampleFadeTrailers {
+    min-height: 27rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 40rem;
+}
+}
+
+@media (max-width: 1708px) {
+
+#carouselExampleFadeTrailers {
+    min-height: 27rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 40rem;
+}
+}
+
+@media (max-width: 1181px) {
+
+#carouselExampleFadeTrailers {
+    min-height: 21rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 40rem;
+}
+}
+
+@media (max-width: 102px) {
+
+#carouselExampleFadeTrailers {
+    min-height: 22rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 42rem;
+}
+}
+
+@media (max-width: 992px) {
+#carouselExampleFadeTrailers {
+    min-height: 57rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 75rem;
+}
+}
+
+@media (min-width: 992px) {
+
+.card-wrapper {
+    position: relative;
+    width: 15rem;
+    height: 40rem;
+    transition: transform 0.8s ease;
+}
+.card-wrapper:hover .default-card {
+    opacity: 0;
+    transform: scale(1.04);
+}
+.card-wrapper:hover .hover-card {
+    opacity: 1;
+    transform: scale(1.04);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+.card-wrapper:hover .hover-card-img {
+    opacity: 0.4;
+}
+
+}
+
+@media (max-width: 769px) {
+
+.default-card-text {
+    font-size: 0.8rem;
+    max-height: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    padding-right: 10px;
+    margin-bottom: 1rem;
+}
+
+#carouselExampleFadeTrailers {
+    min-height: 55rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 75rem;
+}
+}
+
+@media (max-width: 741px) {
+
+#carouselExampleFadeTrailers {
+    min-height: 43rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 58rem;
+}
+}
+
+@media (max-width: 691px) {
+
+.default-card-text {
+    font-size: 0.8rem;
+    max-height: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    padding-right: 10px;
+    margin-bottom: 0.3rem;
+}
+
+#carouselExampleFadeTrailers {
+    min-height: 43rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 58rem;
+}
+}
+
+@media (max-width: 668px) {
+
+.default-card-text {
+    font-size: 0.8rem;
+    max-height: 8rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -174,296 +448,78 @@ div.feature-font-weight-bold {
     line-clamp: 3;
     -webkit-box-orient: vertical;
     padding-right: 10px;
-    margin-bottom: 0.1rem;
+    margin-bottom: 1rem;
 }
 
-.hover-card {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    opacity: 0;
-    transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.8s ease;
-    transform: scale(1.04); 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+#carouselExampleFadeTrailers {
+    min-height: 43rem;
 }
 
-.hover-card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: opacity 0.3s ease;
+#carouselExampleFadeMovies {
+    min-height: 58rem;
 }
-
-.hover-card-text {
-    width: 100%;
-    height: auto;
-    max-height: 75%;
-    overflow-y: auto;
-}
-
-
-.card-body {
-    padding: 1rem;
-    background-color: white;
-}
-
-.card-img-top {
-    width: 100%;
-    object-fit: cover;
-}
-
-.card-img-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-}
-
-.card-title, .card-text {
-    z-index: 3;
-}
-
-/*NavBar CSS*/
-.navbar-collapse .search-form {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-/*Carousel CSS*/
-#carouselExampleFade .carousel-item {
-    transition: opacity 1s ease-in-out;
-}
-
-/* Make indicator buttons dark */
-.carousel-indicators button {
-    background-color: #333; /* Dark color for inactive buttons */
-    border: 1px solid #666; /* Optional: Dark border for inactive buttons */
-}
-
-/* Change active indicator button color */
-.carousel-indicators button.active {
-    background-color: #555; /* Slightly lighter dark color for the active button */
-}
-
-/* Optional: Change hover color for indicators */
-.carousel-indicators button:hover {
-    background-color: #777; /* Lighter dark color on hover */
-}
-
-/*.carousel-item-title {
-    width: 33.33%;
-    display: 'flex';
-    justify-content: 'center';
-}*/
-
-/*@media for small screen*/
-@media (max-width: 991px) {
-
-    .navbar-collapse.collapsing .search-form,
-    .navbar-collapse.collapse .search-form {
-      justify-content: flex-end; 
-    }
-    .default-card-text {
-        font-size: 0.8rem;
-        max-height: 10rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 7;
-        line-clamp: 7;
-        -webkit-box-orient: vertical;
-        padding-right: 10px;
-        margin-bottom: 1rem;
-    }
-    .hover-card-img {
-        opacity: 0.4;
-    }
-
-    #carouselExampleFadeTrailers {
-        min-height: 55rem;
-    }
-    
-    #carouselExampleFadeMovies {
-        min-height: 75rem;
-    }
-}
-
-/*@media for large screen*/
-
-@media (min-width: 992px) {
-
-    .card-wrapper {
-        position: relative;
-        width: 15rem;
-        height: 40rem;
-        transition: transform 0.8s ease;
-    }
-    .card-wrapper:hover .default-card {
-        opacity: 0;
-        transform: scale(1.04);
-    }
-    .card-wrapper:hover .hover-card {
-        opacity: 1;
-        transform: scale(1.04);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-    }
-    .card-wrapper:hover .hover-card-img {
-        opacity: 0.4;
-    }
-
-    #carouselExampleFadeTrailers {
-        min-height: 22rem;
-    }
-    
-    #carouselExampleFadeMovies {
-        min-height: 40rem;
-    }
-
-  }
-
-@media (max-width: 769px) {
-
-    .default-card-text {
-        font-size: 0.8rem;
-        max-height: 8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
-        -webkit-box-orient: vertical;
-        padding-right: 10px;
-        margin-bottom: 1rem;
-    }
-
-    #carouselExampleFadeTrailers {
-        min-height: 55rem;
-    }
-    
-    #carouselExampleFadeMovies {
-        min-height: 75rem;
-    }
-}
-
-@media (max-width: 691px) {
-
-    .default-card-text {
-        font-size: 0.8rem;
-        max-height: 8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
-        -webkit-box-orient: vertical;
-        padding-right: 10px;
-        margin-bottom: 0.3rem;
-    }
-
-    #carouselExampleFadeTrailers {
-        min-height: 43rem;
-    }
-    
-    #carouselExampleFadeMovies {
-        min-height: 58rem;
-    }
-}
-
-@media (max-width: 668px) {
-
-    .default-card-text {
-        font-size: 0.8rem;
-        max-height: 8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-        padding-right: 10px;
-        margin-bottom: 1rem;
-    }
-
-    #carouselExampleFadeTrailers {
-        min-height: 43rem;
-    }
-    
-    #carouselExampleFadeMovies {
-        min-height: 58rem;
-    }
 }
 
 @media (max-width: 442px) {
 
-    .default-card-text {
-        font-size: 0.8rem;
-        max-height: 8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        padding-right: 10px;
-        margin-bottom: 1rem;
-    }
+.default-card-text {
+    font-size: 0.8rem;
+    max-height: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding-right: 10px;
+    margin-bottom: 1rem;
+}
 
-    #carouselExampleFadeTrailers {
-        min-height: 35rem;
-    }
-    
-    #carouselExampleFadeMovies {
-        min-height: 47rem;
-    }
+#carouselExampleFadeTrailers {
+    min-height: 35rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 47rem;
+}
 }
 
 @media (max-width: 432px) {
 
-    .default-card-text {
-        font-size: 0.8rem;
-        max-height: 8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        line-clamp: 1;
-        -webkit-box-orient: vertical;
-        padding-right: 10px;
-        margin-bottom: 1rem;
-    }
+.default-card-text {
+    font-size: 0.8rem;
+    max-height: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    padding-right: 10px;
+    margin-bottom: 1rem;
+}
 }
 
 @media (max-width: 391px) {
 
-    .default-card-text {
-        font-size: 0.8rem;
-        max-height: 8rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        line-clamp: 1;
-        -webkit-box-orient: vertical;
-        padding-right: 10px;
-        margin-bottom: 0.3rem;
-    }
+.default-card-text {
+    font-size: 0.8rem;
+    max-height: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    padding-right: 10px;
+    margin-bottom: 0.3rem;
+}
 
-    #carouselExampleFadeTrailers {
-        min-height: 31rem;
-    }
-    
-    #carouselExampleFadeMovies {
-        min-height: 43rem;
-    }
+#carouselExampleFadeTrailers {
+    min-height: 31rem;
+}
+
+#carouselExampleFadeMovies {
+    min-height: 43rem;
+}
 }

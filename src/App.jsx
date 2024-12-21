@@ -5,6 +5,9 @@ import MovieDetails from './MovieDetails.jsx'
 import MovieNotFound from './MovieNotFound.jsx'
 import Hero from './HeroSection'
 import Footer from './Footer'
+import LoginPage from './Login'
+import RegisterPage from './RegisterPage'
+import ForgotPasswordPage from './ForgotPassword.jsx'
 import { Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
@@ -118,6 +121,9 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/PasswordReset" element={<ForgotPasswordPage />} />
+        <Route path="/Register" element={<RegisterPage />} />
+        <Route path="/Login" element={<LoginPage />} />
         <Route path="/TopRatedMovies"
           element={
             <PopularCurrently

@@ -7,27 +7,31 @@ import { genres } from './assets/genres';
 const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, setGenreType}) => {
   const navigate = useNavigate();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null);
-  const inputRef = useRef(null);
-  const submitButtonRef = useRef(null);
+  const dropdownRef = useRef(null);  // Create a ref for the dropdown
+  const inputRef = useRef(null);      // Create a ref for the input
+  const submitButtonRef = useRef(null); // Create a ref for the submit button
+
+  const handleLoginClick = () => {
+    navigate('/login'); // Navigate to the /login route
+  };
+
+  const handleClickOutside = (e) => {
+    if (
+      dropdownRef.current && 
+      !dropdownRef.current.contains(e.target) &&
+      inputRef.current && 
+      !inputRef.current.contains(e.target) &&
+      submitButtonRef.current && 
+      !submitButtonRef.current.contains(e.target)
+    ) {
+      setIsDropdownVisible(false);  // Hide the dropdown if the click is outside
+    }
+  };
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target) &&
-        inputRef.current &&
-        !inputRef.current.contains(e.target) &&
-        submitButtonRef.current &&
-        !submitButtonRef.current.contains(e.target)
-      ) {
-        setIsDropdownVisible(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);  // Add the event listener
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);  // Cleanup the event listener
     };
   }, []);
 
@@ -59,6 +63,12 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
   const handleFocus = () => {
     setIsDropdownVisible(true);
   };
+
+  /*const handleBlur = () => {
+    setTimeout(() => {
+      setIsDropdownVisible(false);
+    }, 300);
+  };*/
 
   return (
     <div className="bg-light">
@@ -111,39 +121,67 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                 </ul>
               </li>
             </ul>
-            <form className="d-flex search-form" role="search" onSubmit={handleSubmit}>
-              <div className="dropdown flex-grow-1" style={{maxWidth: '380px'}} ref={dropdownRef}>
-                <input
-                    ref={inputRef}
-                    className="form-control me-2"
-                    type="search"
-                    placeholder="Search Movies Here"
-                    aria-label="Search"
-                    value={searchText}
-                    onChange={handleInputChange}
-                    onKeyDown={updateSearchText}
-                    onFocus={handleFocus} 
-                  />
-                  {isDropdownVisible && searchText !== '' && showResults.length > 0 && (
-                    <ul className="dropdown-menu show" aria-labelledby="navbarDropdown" style={{maxHeight: '300px', overflowY: 'auto'}}>
-                      {showResults.map((result, index) => (
-                          <li key={index}>
-                            <Link
-                              to={`/movie/${result.id}`}
-                              className="dropdown-item p-0"
-                              onClick={() => { setIsDropdownVisible(false); setSearchText(''); }}>
-                                <SearchBarMovieCards movie={result} />
-                            </Link>
-                          </li>
-                        ))}
-                    </ul>
-                  )}
-              </div>
-              <button ref={submitButtonRef} className="btn btn-outline-dark ms-2" type="submit">Search</button>
-            </form>
+            <li className="nav-item d-block d-lg-none">
+                <Link className="nav-link active" aria-current="page" to="/Login" style={{ fontWeight: 'bold' }}>Log In / Register</Link>
+            </li>
+            <button 
+            className="btn btn-outline-dark ms-2 d-none d-lg-flex"       
+            type="button" // Change the type to 'button' to prevent form submission
+            onClick={handleLoginClick}>
+              Log In / Register
+            </button>
           </div>
         </div>
       </nav>
+      <div className='mt-3 mb-4 ms-2 me-2'>
+        <form className="d-flex search-form" role="search" onSubmit={handleSubmit}>
+          <div className="dropdown flex-grow-1" ref={dropdownRef}>
+            <input
+                ref={inputRef}
+                className="form-control me-2"
+                type="search"
+                placeholder="Search Movies Here"
+                aria-label="Search"
+                value={searchText}
+                onChange={handleInputChange}
+                onKeyDown={updateSearchText}
+                onFocus={handleFocus} 
+                //onBlur={handleBlur}
+              />
+              {isDropdownVisible && searchText !== '' && showResults.length > 0 && (
+                <ul
+                  className="dropdown-menu show w-100 p-0"
+                  aria-labelledby="navbarDropdown"
+                  style={{
+                    maxHeight: '300px',
+                    overflowY: 'auto',
+                    padding: '10px 0',
+                  }}
+                >
+                  <div
+                    className="d-flex flex-wrap justify-content-start"
+                  >
+                    {showResults.map((result, index) => (
+                      <div key={index} className="col-12 col-lg-4">
+                        <Link
+                          to={`/movie/${result.id}`}
+                          className="dropdown-item p-0"
+                          onClick={() => {
+                            setIsDropdownVisible(false);
+                            setSearchText('');
+                          }}
+                        >
+                          <SearchBarMovieCards movie={result} />
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </ul>
+              )}
+          </div>
+          <button className="btn btn-outline-dark ms-3" type="submit" ref={submitButtonRef}>Search</button>
+        </form>
+      </div>
     </div>
     </div>
   )

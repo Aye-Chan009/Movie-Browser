@@ -32,7 +32,7 @@ const MovieNotFound = () => {
                         style={{
                             fontSize: '6rem',
                             fontWeight: '700',
-                            color: '#f8f9fa', // Light color for contrast
+                            color: '#f9a825', // Light color for contrast
                         }}
                     >
                         404

@@ -8,9 +8,11 @@ import Footer from './Footer'
 import LoginPage from './Login'
 import RegisterPage from './RegisterPage'
 import ForgotPasswordPage from './ForgotPassword.jsx'
+import RegisterSuccessPage from './RegisterSuccess'
 import { Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
+import AccountState from './AccountState.jsx'
 const accessKey = import.meta.env.VITE_Access_Key;
 
 function App() {
@@ -122,7 +124,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/PasswordReset" element={<ForgotPasswordPage />} />
-        <Route path="/Register" element={<RegisterPage />} />
+        <Route path="/RegisterSuccess" element={<RegisterSuccessPage />} />
+        <Route path="/Register" 
+          element={
+            <AccountState> 
+              <RegisterPage />
+            </AccountState>} 
+        />
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/TopRatedMovies"
           element={

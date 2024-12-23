@@ -1,19 +1,15 @@
 import React from 'react';
-import Hero from './HeroSection';
 import { Link } from 'react-router-dom';
 
 const MovieNotFound = () => {
     return (
-        <div className="container p-0">
-            <Hero text={"Page does not exist"} />
-            {/* Inline styles for the 404 page with bg-primary and bg-dark */}
+        <div className="container p-0 bg-light">
             <div 
                 style={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     height: '80vh', // Adjust the height for your design
-                    backgroundColor: '#007bff', // bg-primary equivalent
                     textAlign: 'center',
                     padding: '3rem 1rem',
                 }}

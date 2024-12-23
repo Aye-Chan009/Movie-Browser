@@ -19,6 +19,9 @@ const accessKey = import.meta.env.VITE_Access_Key;
 //google searchable
 //safari suggestion image
 //where to watch platform
+//resend verification link
+//pop up for user already exist for registeration
+//user name / name in cognito
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();

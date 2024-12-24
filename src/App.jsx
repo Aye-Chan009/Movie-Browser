@@ -131,7 +131,12 @@ function App() {
               <RegisterPage />
             </AccountState>} 
         />
-        <Route path="/Login" element={<LoginPage />} />
+        <Route path="/Login"
+            element={
+              <AccountState> 
+                <LoginPage />
+              </AccountState>} 
+        />
         <Route path="/TopRatedMovies"
           element={
             <PopularCurrently

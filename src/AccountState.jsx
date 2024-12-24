@@ -1,6 +1,7 @@
 import React from "react";
 import AccountContext from "./AccountContext";
 import UserPool from "./UserPool";
+import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 
 const AccountState = (props) => {
 
@@ -26,8 +27,37 @@ const AccountState = (props) => {
         })
     }
 
+    const authenticate = async (Username, Password) => {
+        return await new Promise ((resolve, reject) => {
+            const user = new CognitoUser ({
+                Username,
+                Pool: UserPool
+            })
+
+            const authDetails = new AuthenticationDetails({
+                Username,
+                Password
+            })
+
+            user.authenticateUser(authDetails, {
+                onSuccess: (data) => {
+                    console.log("Login Success", data);
+                    resolve(data);
+                },
+                onFailure: (err) => {
+                    console.log("Failure", err.message);
+                    reject(err);
+                },
+                newPasswordRequired: (data) => {
+                    console.log("New Password required", data);
+                    resolve(data);
+                }
+            })
+        })
+    }
+
     return (
-        <AccountContext.Provider value={{signup}}>
+        <AccountContext.Provider value={{signup, authenticate}}>
             {props.children}
         </AccountContext.Provider>
     )

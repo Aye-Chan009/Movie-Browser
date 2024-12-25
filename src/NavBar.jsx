@@ -146,7 +146,6 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                   </div>
                 </ul>
               </li>
-              <button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>
             </ul>
             { currentUser ? (
               <>

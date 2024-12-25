@@ -113,14 +113,15 @@ function App() {
   
   return (
     <div>
-      <NavBar
-        searchText={searchText}
-        setSearchText={setSearchText}
-        setQuery={setQuery}
-        setConfirm={setConfirm}
-        showResults={showResults}
-        setGenreType ={setGenreType}
-      />
+      <AccountState>
+        <NavBar
+          searchText={searchText}
+          setSearchText={setSearchText}
+          setQuery={setQuery}
+          setConfirm={setConfirm}
+          showResults={showResults}
+          setGenreType ={setGenreType}
+        />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/PasswordReset" element={<ForgotPasswordPage />} />
@@ -172,6 +173,7 @@ function App() {
         <Route path="*" element={<MovieNotFound/>} />
         </Routes>
         <Footer/>
+        </AccountState>
     </div>
   )
 }

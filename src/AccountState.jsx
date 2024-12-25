@@ -5,6 +5,54 @@ import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 
 const AccountState = (props) => {
 
+    const logout = async () => {
+        return await new Promise((resolve, reject) => {
+            const user = UserPool.getCurrentUser();
+            if (user) {
+                user.signOut();
+                localStorage.removeItem('loggedInUserName');
+                resolve(user);
+            } else {
+                reject()
+            }
+        })
+    }
+
+    const getSession = async () => {
+        return await new Promise ((resolve, reject) => {
+            const user = UserPool.getCurrentUser();
+            if (user) {
+                user.getSession(async (err, session) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        //resolve(session);
+                        const attributes = await new Promise ((resolve, reject) => {
+                            user.getUserAttributes((err, attributes) => {
+                                if (err) {
+                                    console.log(err.message);
+                                    reject(err);
+                                } else {
+                                    const results = {};
+                                    for (let attribute of attributes) {
+                                        const {Name, Value} = attribute;
+                                        results[Name] = Value;
+                                    }
+                                    resolve(results);
+                                    console.log(results);
+                                    localStorage.setItem('loggedInUserName', results.name);
+                                }
+                            })
+                        })
+                        resolve({user, ...session, ...attributes})
+                    }
+                })
+            } else {
+                reject();
+            }
+        })
+    }
+
     const signup = async (eamil, name, password) => {
         return await new Promise ((resolve, reject) => {
             var attributeList = [];
@@ -57,7 +105,7 @@ const AccountState = (props) => {
     }
 
     return (
-        <AccountContext.Provider value={{signup, authenticate}}>
+        <AccountContext.Provider value={{signup, authenticate, getSession, logout}}>
             {props.children}
         </AccountContext.Provider>
     )

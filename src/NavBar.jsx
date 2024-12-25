@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+import AccountContext from "./AccountContext";
 import SearchBarMovieCards from './SearchBarMovieCards.jsx'
 import './App.css'
 import { genres } from './assets/genres';
@@ -10,6 +11,23 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
   const dropdownRef = useRef(null);  // Create a ref for the dropdown
   const inputRef = useRef(null);      // Create a ref for the input
   const submitButtonRef = useRef(null); // Create a ref for the submit button
+
+  const currentUser = localStorage.getItem('loggedInUserName');
+  console.log(currentUser)
+  
+  const context = useContext(AccountContext);
+  const {getSession, logout} = context;
+
+  const logOut = () => {
+    logout()
+    .then(data => {
+      console.log("Logged out successfully")
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    navigate('/');
+  }
 
   const handleLoginClick = () => {
     navigate('/login'); // Navigate to the /login route
@@ -29,7 +47,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);  // Add the event listener
+      document.addEventListener('mousedown', handleClickOutside);  // Add the event listener
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);  // Cleanup the event listener
     };
@@ -69,6 +87,14 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
       setIsDropdownVisible(false);
     }, 300);
   };*/
+
+  const capitalizeWords = (str) => {
+    if (!str) return str;
+    return str
+      .split(' ') // Split the string into an array of words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+      .join(' '); // Join the words back into a string
+  };
 
   return (
     <div className="bg-light">
@@ -120,16 +146,44 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                   </div>
                 </ul>
               </li>
+              <button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>
             </ul>
-            <li className="nav-item d-block d-lg-none">
-                <Link className="nav-link active" aria-current="page" to="/Login" style={{ fontWeight: 'bold' }}>Log In / Register</Link>
-            </li>
-            <button 
-            className="btn btn-outline-dark ms-2 d-none d-lg-flex"       
-            type="button" // Change the type to 'button' to prevent form submission
-            onClick={handleLoginClick}>
-              Log In / Register
-            </button>
+            { currentUser ? (
+              <>
+                <li className="nav-item dropdown d-none d-lg-flex">
+                  <div className="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: 'bold' }}>
+                    Hi, {capitalizeWords(currentUser)}
+                  </div>
+                  <div className="dropdown-menu" style= {{right: '0', left: 'auto'}} aria-labelledby="navbarDropdown">
+                    <a className="dropdown-item" href="#">Profile</a>
+                    <div className="dropdown-divider"></div>
+                    <button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>
+                  </div>
+                </li>
+                <li className="nav-item dropdown d-block d-lg-none">
+                  <div className="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: 'bold' }}>
+                    Hi, {capitalizeWords(currentUser)}
+                  </div>
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a className="dropdown-item" href="#">Profile</a>
+                    <div className="dropdown-divider"></div>
+                    <button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>
+                  </div>
+                </li>  
+              </>             
+              ) : (
+                <div>
+                  <li className="nav-item d-block d-lg-none">
+                    <Link className="nav-link active" aria-current="page" to="/Login" style={{ fontWeight: 'bold' }}>Log In / Register</Link>
+                  </li>
+                  <button 
+                  className="btn btn-outline-dark ms-2 d-none d-lg-flex"       
+                  type="button" // Change the type to 'button' to prevent form submission
+                  onClick={handleLoginClick}>
+                      Log In / Register
+                  </button>
+                </div>
+              )}
           </div>
         </div>
       </nav>

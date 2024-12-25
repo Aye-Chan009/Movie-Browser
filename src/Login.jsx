@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AccountContext from "./AccountContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importing eye icons
@@ -11,7 +11,17 @@ const LoginPage = () => {
     const [passwordVisible, setPasswordVisible] = useState(false); // New state for password visibility
     const navigate = useNavigate();
 
-    const {authenticate} = useContext(AccountContext);
+    const {authenticate, getSession} = useContext(AccountContext);
+
+    /*useEffect(() =>{
+        getSession()
+        .then(session=> {
+            console.log(session);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    })*/
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,11 +30,18 @@ const LoginPage = () => {
             authenticate(email, password)
              .then(data =>{
                 console.log("Logged in Successfully", data);
+                getSession()
+                .then(session=> {
+                    console.log(session);
+                    navigate("/"); // Redirect to the dashboard or another page
+                })
+                .catch(err => {
+                    console.log(err);
+                })
              })
              .catch(err => {
                 console.log("Failed to Login", err.message);
              })
-            navigate("/"); // Redirect to the dashboard or another page
         } else {
             setError("Please enter both email and password.");
         }

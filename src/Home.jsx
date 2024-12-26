@@ -24,6 +24,22 @@ const accessKey = import.meta.env.VITE_Access_Key;
 //user name / name in cognito
 //failed to log in as user is not confirmed
 //incorrect eamil/password failure page
+//forgot password and reset
+//register success page
+
+/*
+VITE_API_KEY = bc67fd496dc03a11ce5cadac8e55bff0
+VITE_Access_Key = eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYzY3ZmQ0OTZkYzAzYTExY2U1Y2FkYWM4ZTU1YmZmMCIsIm5iZiI6MTczMjQ2Njk4My44MDYwMzY1LCJzdWIiOiI2NzM4ZWNmYTljMTZkYWZhMDZmOWFlZjEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.A-wot8wd9tGMNkp3HZdNg3AwzQPN3sctyand4CiDJsc
+
+VITE_COGNITO_AUTHORITY=https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_1pZLWdUrc
+VITE_COGNITO_CLIENT_ID=43emoecp1ple507ppsq6qrql5c
+VITE_COGNITO_REDIRECT_URI=http://localhost:5173/
+VITE_COGNITO_SCOPE=email openid phone
+
+
+VITE_COGNITO_LOGOUT_URI=http://localhost:5173/
+VITE_COGNITO_DOMAIN=https://ap-southeast-21pzlwdurc.auth.ap-southeast-2.amazoncognito.com
+*/
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();

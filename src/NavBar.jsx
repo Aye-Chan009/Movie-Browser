@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef, useContext } from 'react';
-import AccountContext from "./AccountContext";
+import { useState, useEffect, useRef } from 'react';
 import SearchBarMovieCards from './SearchBarMovieCards.jsx'
 import './App.css'
 import { genres } from './assets/genres';
+import { useAuth } from "react-oidc-context";
 
 const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, setGenreType}) => {
   const navigate = useNavigate();
@@ -11,26 +11,22 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
   const dropdownRef = useRef(null);  // Create a ref for the dropdown
   const inputRef = useRef(null);      // Create a ref for the input
   const submitButtonRef = useRef(null); // Create a ref for the submit button
+  const auth = useAuth();
 
-  const currentUser = localStorage.getItem('loggedInUserName');
-  console.log(currentUser)
-  
-  const context = useContext(AccountContext);
-  const {getSession, logout} = context;
+  const signOutRedirect = () => {
+    const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
+    const logoutUri = import.meta.env.VITE_COGNITO_LOGOUT_URI;
+    const cognitoDomain = import.meta.env.VITE_COGNITO_DOMAIN;
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
+  };
 
-  const logOut = () => {
-    logout()
-    .then(data => {
-      console.log("Logged out successfully")
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    navigate('/');
+  const logOut =() => {
+    auth.removeUser();
+    signOutRedirect();
   }
 
   const handleLoginClick = () => {
-    navigate('/login'); // Navigate to the /login route
+    auth.signinRedirect();
   };
 
   const handleClickOutside = (e) => {
@@ -96,6 +92,11 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
       .join(' '); // Join the words back into a string
   };
 
+  console.log(auth.user?.profile)
+  console.log(auth.user?.id_token)
+  console.log(auth.user?.access_token)
+  console.log(auth)
+
   return (
     <div className="bg-light">
     <div className='container p-0'>
@@ -146,13 +147,13 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                   </div>
                 </ul>
               </li>
-              <button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>
+              {/*<button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>*/}
             </ul>
-            { currentUser ? (
+            { auth.isAuthenticated ? (
               <>
                 <li className="nav-item dropdown d-none d-lg-flex">
                   <div className="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: 'bold' }}>
-                    Hi, {capitalizeWords(currentUser)}
+                    Hi, {capitalizeWords(auth.user?.profile.email)}
                   </div>
                   <div className="dropdown-menu" style= {{right: '0', left: 'auto'}} aria-labelledby="navbarDropdown">
                     <a className="dropdown-item" href="#">Profile</a>
@@ -162,7 +163,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                 </li>
                 <li className="nav-item dropdown d-block d-lg-none">
                   <div className="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: 'bold' }}>
-                    Hi, {capitalizeWords(currentUser)}
+                    Hi, {capitalizeWords(auth.user?.profile.username)}
                   </div>
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a className="dropdown-item" href="#">Profile</a>
@@ -174,7 +175,13 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
               ) : (
                 <div>
                   <li className="nav-item d-block d-lg-none">
-                    <Link className="nav-link active" aria-current="page" to="/Login" style={{ fontWeight: 'bold' }}>Log In / Register</Link>
+                    <button 
+                      className="nav-link active" 
+                      aria-current="page" 
+                      style={{ fontWeight: 'bold', background: 'none', border: 'none', cursor: 'pointer'}}
+                      onClick={handleLoginClick}>
+                      Log In / Register
+                    </button>
                   </li>
                   <button 
                   className="btn btn-outline-dark ms-2 d-none d-lg-flex"       
@@ -184,6 +191,18 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                   </button>
                 </div>
               )}
+                {/*<div>
+                  <li className="nav-item d-block d-lg-none">
+                    <Link className="nav-link active" aria-current="page" to="/Login" style={{ fontWeight: 'bold' }}>Log In / Register</Link>
+                  </li>
+                  <button 
+                  className="btn btn-outline-dark ms-2 d-none d-lg-flex"       
+                  type="button" // Change the type to 'button' to prevent form submission
+                  onClick={handleLoginClick}>
+                      Log In / Register
+                  </button>
+                </div>*/}
+
           </div>
         </div>
       </nav>

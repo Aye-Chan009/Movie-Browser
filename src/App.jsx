@@ -5,14 +5,9 @@ import MovieDetails from './MovieDetails.jsx'
 import MovieNotFound from './MovieNotFound.jsx'
 import Hero from './HeroSection'
 import Footer from './Footer'
-import LoginPage from './Login'
-import RegisterPage from './RegisterPage'
-import ForgotPasswordPage from './ForgotPassword.jsx'
-import RegisterSuccessPage from './RegisterSuccess'
 import { Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
-import AccountState from './AccountState.jsx'
 const accessKey = import.meta.env.VITE_Access_Key;
 
 function App() {
@@ -113,7 +108,6 @@ function App() {
   
   return (
     <div>
-      <AccountState>
         <NavBar
           searchText={searchText}
           setSearchText={setSearchText}
@@ -124,20 +118,6 @@ function App() {
         />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/PasswordReset" element={<ForgotPasswordPage />} />
-        <Route path="/RegisterSuccess" element={<RegisterSuccessPage />} />
-        <Route path="/Register" 
-          element={
-            <AccountState> 
-              <RegisterPage />
-            </AccountState>} 
-        />
-        <Route path="/Login"
-            element={
-              <AccountState> 
-                <LoginPage />
-              </AccountState>} 
-        />
         <Route path="/TopRatedMovies"
           element={
             <PopularCurrently
@@ -173,7 +153,6 @@ function App() {
         <Route path="*" element={<MovieNotFound/>} />
         </Routes>
         <Footer/>
-        </AccountState>
     </div>
   )
 }

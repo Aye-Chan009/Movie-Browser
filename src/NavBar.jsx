@@ -84,8 +84,6 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
     }, 300);
   };*/
 
-  //console.log(auth.user?.profile)
-
   return (
     <div className="bg-light">
     <div className='container p-0'>

@@ -136,10 +136,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                   </div>
                 </ul>
               </li>
-<<<<<<< HEAD
-=======
               {/*<button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>*/}
->>>>>>> ee5978b52971d2beb6f3061b32e32a1c88014b70
             </ul>
             { auth.isAuthenticated ? (
               <>

@@ -84,18 +84,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
     }, 300);
   };*/
 
-  const capitalizeWords = (str) => {
-    if (!str) return str;
-    return str
-      .split(' ') // Split the string into an array of words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
-      .join(' '); // Join the words back into a string
-  };
-
-  console.log(auth.user?.profile)
-  console.log(auth.user?.id_token)
-  console.log(auth.user?.access_token)
-  console.log(auth)
+  //console.log(auth.user?.profile)
 
   return (
     <div className="bg-light">
@@ -153,7 +142,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
               <>
                 <li className="nav-item dropdown d-none d-lg-flex">
                   <div className="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: 'bold' }}>
-                    Hi, {capitalizeWords(auth.user?.profile.email)}
+                    Hi, {auth.user?.profile?.['cognito:username']}
                   </div>
                   <div className="dropdown-menu" style= {{right: '0', left: 'auto'}} aria-labelledby="navbarDropdown">
                     <a className="dropdown-item" href="#">Profile</a>
@@ -163,7 +152,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                 </li>
                 <li className="nav-item dropdown d-block d-lg-none">
                   <div className="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontWeight: 'bold' }}>
-                    Hi, {capitalizeWords(auth.user?.profile.username)}
+                    Hi, {auth.user?.profile?.['cognito:username']}
                   </div>
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a className="dropdown-item" href="#">Profile</a>

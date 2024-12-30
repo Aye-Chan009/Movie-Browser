@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import Hero from './HeroSection';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from "react-oidc-context";
 const accessKey = import.meta.env.VITE_Access_Key;
+const ReviewAPI = import.meta.env.VITE_REVIEW_API_URL;
 
 const MovieDetails = () => {
     const { id } = useParams();
@@ -11,6 +13,12 @@ const MovieDetails = () => {
     const [trailer, setTrailer] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
+    const [reviewError, setReviewError] = useState('');
+    const [userReviews, setUserReviews] = useState([]);
+    const [reviewText, setReviewText] = useState('');
+    const [reviewloading, setReviewLoading] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const auth = useAuth();
 
     const options = {
         method: 'GET',
@@ -20,8 +28,30 @@ const MovieDetails = () => {
         },
     };
 
+    const reviewsAPI = {
+      method: 'GET',
+      headers: {
+          accept: 'application/json',
+      },
+    }
+
+    const fetchReviews = async () => {
+
+      fetch(`${ReviewAPI}?MovieID=${id}`, reviewsAPI)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserReviews(data);
+        //console.log(userReviews)
+      })
+      .catch((err) => {
+          setReviewError(err.message);
+      });
+    };
+
     useEffect(() => {
         setIsLoading(true);
+
+        fetchReviews();
 
         fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
             .then((res) => {
@@ -66,6 +96,16 @@ const MovieDetails = () => {
                 setError(err.message);
             });
 
+        /*fetch(`/api/reviews/${id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setUserReviews(data);
+            })
+            .catch((err) => {
+                setError(err.message);
+            });*/
+            /*setUserReviews([{ id: 1, user: 'Demo User', comment: 'Great movie!' }, { id: 2, user: 'Demo User2', comment: 'Great movie2!' }]);*/
+
     }, [id, navigate]);
 
     if (isLoading) {
@@ -83,6 +123,56 @@ const MovieDetails = () => {
             </div>
         );
     }
+
+  const handleReviewChange = (event) => {
+    setReviewText(event.target.value);
+  };
+
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Only proceed if there's text in the review
+    if (!reviewText) {
+        setReviewError('Please write a review before submitting.');
+        return;
+    }
+
+    setReviewLoading(true);
+    setReviewError(null);
+    setSuccessMessage('');
+
+    const data = {
+        MovieID: id,  // Dynamically pass the MovieID (from useParams() or other source)
+        UserName: auth.user?.profile?.['cognito:username'],  // User's username from Cognito
+        ReviewText: reviewText,  // Review text entered by the user
+    };
+
+    try {
+        // Send the POST request to API Gateway
+        const response = await fetch(ReviewAPI, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),  // Send the data in the body as JSON
+        });
+
+        const responseBody = await response.json();
+
+        if (response.ok) {
+            setSuccessMessage('Review submitted successfully!');
+            setReviewText('');  // Clear the review text input
+            fetchReviews();
+        } else {
+            setReviewError(responseBody.error || 'An error occurred while submitting your review.');
+        }
+    } catch (error) {
+        setReviewError('An error occurred. Please try again later.');
+    } finally {
+        setReviewLoading(false);
+    }
+  };
 
     const posterUrl = movieDetail.poster_path ? `https://image.tmdb.org/t/p/w500${movieDetail.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
     const backDropUrl = movieDetail.backdrop_path ? `https://image.tmdb.org/t/p/w1280${movieDetail.backdrop_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
@@ -247,8 +337,209 @@ const MovieDetails = () => {
           </div>
         </div>
 
+        { auth.isAuthenticated ? (
+            <div className="reviews-section mt-5 mb-5 d-none d-lg-block" style={{ 
+              backgroundColor: '#f8f9fa', 
+              padding: '2rem', 
+              borderRadius: '10px', 
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', 
+              border: '1px solid #ddd', 
+              marginTop: '3rem', 
+              marginBottom: '3rem' 
+            }}>
+              <h2 style={{
+                fontSize: '2rem', 
+                color: '#333', 
+                fontWeight: '700', 
+                borderBottom: '2px solid #007bff', 
+                paddingBottom: '10px', 
+                marginBottom: '20px'
+              }}>
+                User Reviews
+              </h2>
 
+              {/* Review Submission Form */}
+              <div style={{
+                backgroundColor: '#ffffff', 
+                padding: '1.5rem', 
+                borderRadius: '8px', 
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)', 
+                marginBottom: '1.5rem'
+              }}>
+                <h3 style={{
+                  fontSize: '1.5rem', 
+                  color: '#333', 
+                  fontWeight: '600', 
+                  marginBottom: '1rem'
+                }}>
+                  Share Your Review
+                </h3>
+                <form onSubmit={handleSubmit}>
+                  <div style={{
+                      fontSize: '1.2rem', 
+                      color: '#007bff', 
+                      fontWeight: '600', 
+                      marginBottom: '0.5rem'
+                    }}>
+                      <strong>{auth.user?.profile?.['cognito:username']}</strong>
+                    </div>
+                  <div style={{
+                    marginBottom: '1rem'
+                  }}>
+                    <label htmlFor="userReview" style={{
+                      fontSize: '1rem', 
+                      color: '#555', 
+                      fontWeight: '500', 
+                      display: 'block', 
+                      marginBottom: '0.5rem'
+                    }}>
+                      Please note that your old review for this movie will be replaced if you make a new one.
+                    </label>
+                    <textarea 
+                      id="userReview" 
+                      rows="4" 
+                      value={reviewText} 
+                      onChange={handleReviewChange}
+                      placeholder="Write your review here..." 
+                      style={{
+                        width: '100%', 
+                        padding: '0.8rem', 
+                        borderRadius: '5px', 
+                        border: '1px solid #ddd', 
+                        fontSize: '1rem', 
+                        color: '#333'
+                      }} 
+                    />
+                  </div>
 
+                  <button type="submit" style={{
+                    backgroundColor: '#007bff', 
+                    color: '#fff', 
+                    padding: '0.8rem 1.5rem', 
+                    borderRadius: '5px', 
+                    border: 'none', 
+                    fontSize: '1rem', 
+                    cursor: 'pointer'
+                  }}
+                  disabled={reviewloading}>
+                    {reviewloading ? 'Submitting...' : 'Submit Review'}
+                  </button>
+                </form>
+                {/* Error or success message */}
+                {reviewError && <p style={{ color: 'red', marginTop: '10px' }}>{reviewError}</p>}
+                {successMessage && <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>}
+              </div>
+
+              {/* Displaying Reviews */}
+              {userReviews.length > 0 ? (
+                userReviews.map((review) => (
+                  <div key={review.UserName} className="review" style={{
+                    backgroundColor: '#ffffff', 
+                    padding: '1.5rem', 
+                    marginBottom: '1rem', 
+                    borderRadius: '8px', 
+                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)', 
+                    borderLeft: '5px solid #007bff'
+                  }}>
+                    <div style={{
+                      fontSize: '1.2rem', 
+                      color: '#007bff', 
+                      fontWeight: '600', 
+                      marginBottom: '0.5rem'
+                    }}>
+                      <strong>{review.UserName}</strong>
+                    </div>
+                    <p style={{
+                      fontSize: '1rem', 
+                      color: '#555', 
+                      lineHeight: '1.6'
+                    }}>
+                      {review.ReviewText}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <div style={{
+                  backgroundColor: '#f8d7da', 
+                  padding: '1rem', 
+                  borderRadius: '8px', 
+                  color: '#721c24', 
+                  textAlign: 'center', 
+                  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)'
+                }}>
+                  <p>No reviews yet. Be the first to add one!</p>
+                </div>
+              )}
+            </div>
+
+          ) : (
+            <div className="reviews-section mt-5 mb-5 d-none d-lg-block" style={{ 
+              backgroundColor: '#f8f9fa', 
+              padding: '2rem', 
+              borderRadius: '10px', 
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', 
+              border: '1px solid #ddd', 
+              marginTop: '3rem', 
+              marginBottom: '3rem' 
+            }}>
+                <h2 style={{
+                  fontSize: '2rem', 
+                  color: '#333', 
+                  fontWeight: '700', 
+                  borderBottom: '2px solid #007bff', 
+                  paddingBottom: '10px', 
+                  marginBottom: '20px'
+                }}>
+                  User Reviews
+                </h2>
+                <h4 style={{
+                  color: '#333',  
+                  paddingBottom: '10px', 
+                  marginBottom: '20px'
+                }}> 
+                  Please login to leave a Review 
+                </h4>
+                {userReviews.length > 0 ? (
+                    userReviews.map((review) => (
+                        <div key={review.UserName} className="review" style={{
+                          backgroundColor: '#ffffff', 
+                          padding: '1.5rem', 
+                          marginBottom: '1rem', 
+                          borderRadius: '8px', 
+                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)', 
+                          borderLeft: '5px solid #007bff'
+                        }}>
+                            <div style={{
+                              fontSize: '1.2rem', 
+                              color: '#007bff', 
+                              fontWeight: '600', 
+                              marginBottom: '0.5rem'
+                            }}>
+                                <strong>{review.UserName}</strong>
+                            </div>
+                            <p style={{
+                              fontSize: '1rem', 
+                              color: '#555', 
+                              lineHeight: '1.6'
+                            }}>
+                                {review.ReviewText}
+                            </p>
+                        </div>
+                    ))
+                ) : (
+                    <div style={{
+                      backgroundColor: '#f8d7da', 
+                      padding: '1rem', 
+                      borderRadius: '8px', 
+                      color: '#721c24', 
+                      textAlign: 'center', 
+                      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)'
+                    }}>
+                        <p>No reviews yet. Be the first to add one!</p>
+                    </div>
+                )}
+            </div>
+          )}
 
         <div className="d-block d-lg-none">
           <div style={{ 
@@ -440,6 +731,211 @@ const MovieDetails = () => {
               </div>
             )}
           </div>
+
+        { auth.isAuthenticated ? (
+            <div className="reviews-section mt-5 mb-5" style={{ 
+              backgroundColor: '#f8f9fa', 
+              padding: '2rem', 
+              borderRadius: '10px', 
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', 
+              border: '1px solid #ddd', 
+              marginTop: '3rem', 
+              marginBottom: '3rem' 
+            }}>
+              <h2 style={{
+                fontSize: '2rem', 
+                color: '#333', 
+                fontWeight: '700', 
+                borderBottom: '2px solid #007bff', 
+                paddingBottom: '10px', 
+                marginBottom: '20px'
+              }}>
+                User Reviews
+              </h2>
+
+              {/* Review Submission Form */}
+              <div style={{
+                backgroundColor: '#ffffff', 
+                padding: '1.5rem', 
+                borderRadius: '8px', 
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)', 
+                marginBottom: '1.5rem'
+              }}>
+                <h3 style={{
+                  fontSize: '1.5rem', 
+                  color: '#333', 
+                  fontWeight: '600', 
+                  marginBottom: '1rem'
+                }}>
+                  Share Your Review
+                </h3>
+                <form onSubmit={handleSubmit}>
+                  <div style={{
+                      fontSize: '1.2rem', 
+                      color: '#007bff', 
+                      fontWeight: '600', 
+                      marginBottom: '0.5rem'
+                    }}>
+                      <strong>{auth.user?.profile?.['cognito:username']}</strong>
+                    </div>
+                  <div style={{
+                    marginBottom: '1rem'
+                  }}>
+                    <label htmlFor="userReview" style={{
+                      fontSize: '1rem', 
+                      color: '#555', 
+                      fontWeight: '500', 
+                      display: 'block', 
+                      marginBottom: '0.5rem'
+                    }}>
+                      Please note that your old review for this movie will be replaced if you make a new one.
+                    </label>
+                    <textarea 
+                      id="userReview" 
+                      rows="4" 
+                      value={reviewText} 
+                      onChange={handleReviewChange}
+                      placeholder="Write your review here..." 
+                      style={{
+                        width: '100%', 
+                        padding: '0.8rem', 
+                        borderRadius: '5px', 
+                        border: '1px solid #ddd', 
+                        fontSize: '1rem', 
+                        color: '#333'
+                      }} 
+                    />
+                  </div>
+
+                  <button type="submit" style={{
+                    backgroundColor: '#007bff', 
+                    color: '#fff', 
+                    padding: '0.8rem 1.5rem', 
+                    borderRadius: '5px', 
+                    border: 'none', 
+                    fontSize: '1rem', 
+                    cursor: 'pointer'
+                  }}
+                  disabled={reviewloading}>
+                    {reviewloading ? 'Submitting...' : 'Submit Review'}
+                  </button>
+                </form>
+                {/* Error or success message */}
+                {reviewError && <p style={{ color: 'red', marginTop: '10px' }}>{reviewError}</p>}
+                {successMessage && <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>}
+              </div>
+
+              {/* Displaying Reviews */}
+              {userReviews.length > 0 ? (
+                userReviews.map((review) => (
+                  <div key={review.UserName} className="review" style={{
+                    backgroundColor: '#ffffff', 
+                    padding: '1.5rem', 
+                    marginBottom: '1rem', 
+                    borderRadius: '8px', 
+                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)', 
+                    borderLeft: '5px solid #007bff'
+                  }}>
+                    <div style={{
+                      fontSize: '1.2rem', 
+                      color: '#007bff', 
+                      fontWeight: '600', 
+                      marginBottom: '0.5rem'
+                    }}>
+                      <strong>{review.UserName}</strong>
+                    </div>
+                    <p style={{
+                      fontSize: '1rem', 
+                      color: '#555', 
+                      lineHeight: '1.6'
+                    }}>
+                      {review.ReviewText}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <div style={{
+                  backgroundColor: '#f8d7da', 
+                  padding: '1rem', 
+                  borderRadius: '8px', 
+                  color: '#721c24', 
+                  textAlign: 'center', 
+                  boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)'
+                }}>
+                  <p>No reviews yet. Be the first to add one!</p>
+                </div>
+              )}
+            </div>
+
+          ) : (
+            <div className="reviews-section mt-5 mb-5" style={{ 
+              backgroundColor: '#f8f9fa', 
+              padding: '2rem', 
+              borderRadius: '10px', 
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', 
+              border: '1px solid #ddd', 
+              marginTop: '3rem', 
+              marginBottom: '3rem' 
+            }}>
+                <h2 style={{
+                  fontSize: '2rem', 
+                  color: '#333', 
+                  fontWeight: '700', 
+                  borderBottom: '2px solid #007bff', 
+                  paddingBottom: '10px', 
+                  marginBottom: '20px'
+                }}>
+                  User Reviews
+                </h2>
+                <h4 style={{
+                  color: '#333',  
+                  paddingBottom: '10px', 
+                  marginBottom: '20px'
+                }}> 
+                  Please login to leave a Review 
+                </h4>
+                
+                {userReviews.length > 0 ? (
+                    userReviews.map((review) => (
+                        <div key={review.UserName} className="review" style={{
+                          backgroundColor: '#ffffff', 
+                          padding: '1.5rem', 
+                          marginBottom: '1rem', 
+                          borderRadius: '8px', 
+                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)', 
+                          borderLeft: '5px solid #007bff'
+                        }}>
+                            <div style={{
+                              fontSize: '1.2rem', 
+                              color: '#007bff', 
+                              fontWeight: '600', 
+                              marginBottom: '0.5rem'
+                            }}>
+                                <strong>{review.UserName}</strong>
+                            </div>
+                            <p style={{
+                              fontSize: '1rem', 
+                              color: '#555', 
+                              lineHeight: '1.6'
+                            }}>
+                                {review.ReviewText}
+                            </p>
+                        </div>
+                    ))
+                ) : (
+                    <div style={{
+                      backgroundColor: '#f8d7da', 
+                      padding: '1rem', 
+                      borderRadius: '8px', 
+                      color: '#721c24', 
+                      textAlign: 'center', 
+                      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)'
+                    }}>
+                        <p>No reviews yet. Be the first to add one!</p>
+                    </div>
+                )}
+            </div>
+          )}
         </div>
       </div>
     );

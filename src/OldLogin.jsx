@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
-import AccountContext from "./AccountContext";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importing eye icons
+import { useAuth } from "react-oidc-context";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -10,38 +10,13 @@ const LoginPage = () => {
     const [focus, setFocus] = useState({ email: false, password: false });
     const [passwordVisible, setPasswordVisible] = useState(false); // New state for password visibility
     const navigate = useNavigate();
-
-    const {authenticate, getSession} = useContext(AccountContext);
-
-    /*useEffect(() =>{
-        getSession()
-        .then(session=> {
-            console.log(session);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    })*/
+    const auth = useAuth();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (email && password) {
-            authenticate(email, password)
-             .then(data =>{
-                console.log("Logged in Successfully", data);
-                getSession()
-                .then(session=> {
-                    console.log(session);
-                    navigate("/"); // Redirect to the dashboard or another page
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-             })
-             .catch(err => {
-                console.log("Failed to Login", err.message);
-             })
+            auth.signinRedirect();
         } else {
             setError("Please enter both email and password.");
         }
@@ -58,6 +33,27 @@ const LoginPage = () => {
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible); // Toggle the password visibility
     };
+
+    if (auth.isLoading) {
+        return <div>Loading...</div>;
+      }
+
+    if (auth.error) {
+    return <div>Encountering error... {auth.error.message}</div>;
+    }
+
+    if (auth.isAuthenticated) {
+        return (
+            <div>
+                <pre> Hello: {auth.user?.profile.name} </pre>
+                <pre> ID Token: {auth.user?.id_token} </pre>
+                <pre> Access Token: {auth.user?.access_token} </pre>
+                <pre> Refresh Token: {auth.user?.refresh_token} </pre>
+
+                <button onClick={() => auth.removeUser()}>Sign out</button>
+            </div>
+        );
+    }
 
     return (
         <div 

@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importing eye icons from react-icons
-import AccountContext from "./AccountContext";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -23,8 +22,6 @@ const RegisterPage = () => {
   });
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false); // New state for confirm password
   const navigate = useNavigate();
-
-  const { signup } = useContext(AccountContext); // Access signup function from AccountContext
 
   // Validate password
   const validatePassword = (password) => {
@@ -64,16 +61,7 @@ const RegisterPage = () => {
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
     } else if (name && email && password) {
-      signup(email, name, password)
-        .then((data) => {
-          console.log("Registered Successfully");
-          // Redirect to success page
-          navigate("/RegisterSuccess");
-        })
-        .catch((err) => {
-          console.log("Failed to register", err.message);
-          setError("Registration failed. Please try again.");
-        });
+        ///
     } else {
       setError("Please fill out all fields.");
     }

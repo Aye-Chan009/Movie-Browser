@@ -24,6 +24,8 @@ const accessKey = import.meta.env.VITE_Access_Key;
 //user name / name in cognito
 //failed to log in as user is not confirmed
 //incorrect eamil/password failure page
+//forgot password and reset
+//register success page
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();

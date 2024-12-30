@@ -145,8 +145,8 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                     Hi, {auth.user?.profile?.['cognito:username']}
                   </div>
                   <div className="dropdown-menu" style= {{right: '0', left: 'auto'}} aria-labelledby="navbarDropdown">
-                    <a className="dropdown-item" href="#">Profile</a>
-                    <div className="dropdown-divider"></div>
+                    {/*<a className="dropdown-item" href="#">Profile</a>*/}
+                    {/*<div className="dropdown-divider"></div>*/}
                     <button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>
                   </div>
                 </li>
@@ -155,8 +155,8 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
                     Hi, {auth.user?.profile?.['cognito:username']}
                   </div>
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a className="dropdown-item" href="#">Profile</a>
-                    <div className="dropdown-divider"></div>
+                    {/*<a className="dropdown-item" href="#">Profile</a>*/}
+                    {/*<div className="dropdown-divider"></div>*/}
                     <button className="dropdown-item" type="button" onClick={logOut}>Log Out</button>
                   </div>
                 </li>  

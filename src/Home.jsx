@@ -5,27 +5,15 @@ import GenreMovieCard from './GenreMovieCard.jsx';
 import { genres } from './assets/genres.jsx';
 const accessKey = import.meta.env.VITE_Access_Key;
 
-//if API return unsuccessful -> error page
-//paganation
-//Footer fix
-//caching
-//spinner for loading
-//static placeholder images
-//search by actor
-//actor detail page
-//log in/out and create user
-//user reviews
-//favicon
-//google searchable
-//safari suggestion image
-//where to watch platform
-//resend verification link
-//pop up for user already exist for registeration
 //user name / name in cognito
-//failed to log in as user is not confirmed
-//incorrect eamil/password failure page
-//forgot password and reset
-//register success page
+//review deletion
+//user profile to view own's reviews and delete account
+//account deletion
+//login redirect
+//stars and rating
+//movie with most reviews on home page
+//movie with highest rating on home page
+//fix about page
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();
@@ -79,7 +67,7 @@ const Home = () => {
             })
             .catch(err => console.error(err));
             
-            fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_genres=${genreOfTheDay.id}`, options)
+            fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_genres=${genreOfTheDay.id}`, options)
             .then(res => res.json())
             .then(data => {
                 if (data && data.results) {

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import './App.css';
-import './GenreMovieCard.css'
+import './GenreMovieCard.css';
+import noImage500x750 from './assets/No_Image_500x750.png';
 
 const GenreMovieCards = ({ TopRated }) => {
 
@@ -12,7 +13,7 @@ const GenreMovieCards = ({ TopRated }) => {
     return (
         <div className="genre-movie-cards">
             {chunkedTopRated(TopRated).map((movie) => {
-                const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
+                const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : noImage500x750;
                 const movieURL = `/movie/${movie.id}`;
 
                 return (

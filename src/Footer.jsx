@@ -1,18 +1,32 @@
 import './App.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <div className="bg-dark">
-    <div className="footer container p-0">
-      <div className="footer-content">
-        <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
-        <div className="footer-links">
-          <a href="/TopRatedMovies" className="footer-link">About</a>
-          <a href="/privacy" className="footer-link">Privacy Policy</a>
-          <a href="/terms" className="footer-link">Terms of Service</a>
+    <div className="bg-dark p-3">
+      <div className="footer container p-0">
+        <div className="footer-content">
+          <p>Special thanks to 
+            <a 
+              href="https://developer.themoviedb.org/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              style={{
+                fontWeight: 'bold',
+                color: '#ffcc00',        
+                textDecoration: 'none',  
+                padding: '0.2rem 0.4rem',      
+              }}
+            >
+              TMDB
+            </a> 
+            for providing the APIs that power this site.
+          </p>
+          <div className="footer-links">
+            <Link to="/About" className="footer-link">About This Website</Link>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

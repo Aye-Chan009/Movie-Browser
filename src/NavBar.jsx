@@ -84,6 +84,10 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
     }, 300);
   };*/
 
+  /*const capitalizeFirstWord = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };*/
+
   return (
     <div className="bg-light">
     <div className='container p-0'>
@@ -95,6 +99,9 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{ whiteSpace: 'nowrap' }}>
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/About" style={{ fontWeight: 'bold' }}>Website Info</Link>
+              </li>
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/TopRatedMovies" style={{ fontWeight: 'bold' }}>Top Rated Movies</Link>
               </li>

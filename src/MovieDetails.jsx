@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Hero from './HeroSection';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from "react-oidc-context";
+import noImage500x750 from './assets/No_Image_500x750.png';
+import noImage150x150 from './assets/No_Image_150x150.png';
 const accessKey = import.meta.env.VITE_Access_Key;
 const ReviewAPI = import.meta.env.VITE_REVIEW_API_URL;
 
@@ -18,6 +20,7 @@ const MovieDetails = () => {
     const [reviewText, setReviewText] = useState('');
     const [reviewloading, setReviewLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const [platform, setPlatform] = useState([]);
     const auth = useAuth();
 
     const options = {
@@ -45,6 +48,21 @@ const MovieDetails = () => {
       })
       .catch((err) => {
           setReviewError(err.message);
+      });
+    };
+
+    
+    const localTime = (timestamp) => {
+      const reviewDate = new Date(timestamp);  // Convert the timestamp to a Date object
+    
+      // Format the local time without weekday and second
+      return reviewDate.toLocaleString('en-US', {
+        year: 'numeric',   // Full year (2024)
+        month: 'short',     // Abbreviated month (Dec, Jan, etc.)
+        day: 'numeric',     // Day of the month (30)
+        hour: '2-digit',    // Hour in 2-digit format (01, 02,...)
+        minute: '2-digit',  // Minute in 2-digit format (00, 01,...)
+        hour12: true,       // Use 12-hour clock (AM/PM)
       });
     };
 
@@ -95,6 +113,32 @@ const MovieDetails = () => {
             .catch((err) => {
                 setError(err.message);
             });
+          
+        fetch(`https://api.themoviedb.org/3/movie/${id}/watch/providers?language=en-US`, options)
+            .then((res) => res.json())
+            .then((data) => {
+              const providers = new Set(); // Using Set to ensure uniqueness
+          
+              // Loop through all country results to get providers
+              Object.values(data.results).forEach((region) => {
+                // Collect providers from 'flatrate', 'buy', and 'rent' categories
+                ['flatrate', 'buy', 'rent'].forEach((category) => {
+                  if (region[category]) {
+                    region[category].forEach((provider) => {
+                      providers.add(provider.provider_name); // Add to Set to ensure uniqueness
+                    });
+                  }
+                });
+              });
+          
+              // Convert Set to array and slice to get only the first five providers
+              const uniqueProviders = [...providers].slice(0, 5);
+              setPlatform(uniqueProviders); // Store first five unique provider names in state
+            })
+            .catch((err) => {
+              setError(err.message);
+            });
+          
 
         /*fetch(`/api/reviews/${id}`)
             .then((res) => res.json())
@@ -174,8 +218,8 @@ const MovieDetails = () => {
     }
   };
 
-    const posterUrl = movieDetail.poster_path ? `https://image.tmdb.org/t/p/w500${movieDetail.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
-    const backDropUrl = movieDetail.backdrop_path ? `https://image.tmdb.org/t/p/w1280${movieDetail.backdrop_path}` : 'https://via.placeholder.com/500x750?text=No+Image';
+    const posterUrl = movieDetail.poster_path ? `https://image.tmdb.org/t/p/w500${movieDetail.poster_path}` : noImage500x750;
+    const backDropUrl = movieDetail.backdrop_path ? `https://image.tmdb.org/t/p/w1280${movieDetail.backdrop_path}` : noImage500x750;
     const imdbURL = movieDetail.imdb_id ? `https://www.imdb.com/title/${movieDetail.imdb_id}` : 'No IMDB Link Found!!';
     const tmdbRating = movieDetail.vote_average ? `${movieDetail.vote_average}` : 'No Rating Yet';
     
@@ -250,7 +294,7 @@ const MovieDetails = () => {
                                   />
                               ) : (
                                   <img
-                                      src="https://via.placeholder.com/150x150?text=No+Image"
+                                      src={noImage150x150}
                                       alt="Placeholder"
                                       className="img-fluid shadow-lg rounded-circle profile-img"
                                       style={{
@@ -323,18 +367,24 @@ const MovieDetails = () => {
               )}
             </div>
           </div>
+
           <div className="genre-list col-md-2 d-flex flex-column mb-3 pt-3">
-            <p className="text-end" style={{marginRight:"2rem"}}><strong>Genre Tags: </strong></p>
-            {movieDetail?.genres?.length > 0 ? (
-              movieDetail.genres.map((genre) => (
-                <div key={genre.id}>
-                  <p className="text-end" style={{marginRight:"2rem"}}><strong>{genre.name}</strong></p>
-                </div>
-            ))
-            ) : (
-              <p className="text-end" style={{marginRight:"2rem"}}><strong>No genres tags found</strong></p>
-            )}
+            <p className="text-end" style={{marginRight:"2rem"}}><strong>Available On: </strong></p>
+            {platform && platform.length > 0 ? (
+                platform.map((provider, index) => (
+                  <div key={index}>
+                    <p className="text-end" style={{marginRight:"2rem"}}>
+                      <strong>{provider}</strong>
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-end" style={{marginRight:"2rem"}}>
+                  <strong>No Provider Available</strong>
+                </p>
+              )}
           </div>
+
         </div>
 
         { auth.isAuthenticated ? (
@@ -448,6 +498,16 @@ const MovieDetails = () => {
                       marginBottom: '0.5rem'
                     }}>
                       <strong>{review.UserName}</strong>
+                      {/* Display the formatted local timestamp */}
+                      <div
+                        style={{
+                          fontSize: '0.9rem',
+                          color: '#888',
+                          marginTop: '0.5rem',
+                        }}
+                      >
+                        <em>{localTime(review.Timestamp)}</em>
+                      </div>
                     </div>
                     <p style={{
                       fontSize: '1rem', 
@@ -516,6 +576,16 @@ const MovieDetails = () => {
                               marginBottom: '0.5rem'
                             }}>
                                 <strong>{review.UserName}</strong>
+                                {/* Display the formatted local timestamp */}
+                                <div
+                                  style={{
+                                    fontSize: '0.9rem',
+                                    color: '#888',
+                                    marginTop: '0.5rem',
+                                  }}
+                                >
+                                  <em>{localTime(review.Timestamp)}</em>
+                                </div>
                             </div>
                             <p style={{
                               fontSize: '1rem', 
@@ -616,29 +686,65 @@ const MovieDetails = () => {
             </p>
           </div>
 
-          <div className="text-center" style={{
-            backgroundColor: '#f8f9fa',
-            padding: '2rem 0',
-          }}>
-            <p><strong>Release Date:</strong></p> 
-            <p>{movieDetail?.release_date || 'Release date Not Found'}</p>
-            <p><strong>Runtime:</strong></p>
-            <p>{movieDetail?.runtime ? `${movieDetail.runtime} min` : 'Coming Soon'}</p>
-            <p><strong>IMDb ID:</strong></p>
-            <p>
-              <a href={imdbURL} target="_blank" rel="noopener noreferrer" style={{
-                textDecoration: 'none',
-                color: '#007bff',
-                fontWeight: '600',
-              }}>
-                Visit IMDB
-              </a>
-            </p>
-            <p><strong>TMDB Rating:</strong></p>
-            <p>
-              {tmdbRating}
-            </p>
+          <div className="container py-3">
+            <div className="row">
+              {/* Left Side: Movie Details */}
+              <div className="col-md-6">
+                <div
+                  className="text-center"
+                  style={{
+                    backgroundColor: '#f8f9fa',
+                    padding: '1rem 0',
+                  }}
+                >
+                  <p><strong>Release Date:</strong></p>
+                  <p>{movieDetail?.release_date || 'Release date Not Found'}</p>
+                  <p><strong>Runtime:</strong></p>
+                  <p>{movieDetail?.runtime ? `${movieDetail.runtime} min` : 'Coming Soon'}</p>
+                  <p><strong>IMDb ID:</strong></p>
+                  <p>
+                    <a
+                      href={imdbURL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        textDecoration: 'none',
+                        color: '#007bff',
+                        fontWeight: '600',
+                      }}
+                    >
+                      Visit IMDB
+                    </a>
+                  </p>
+                  <p><strong>TMDB Rating:</strong></p>
+                  <p>{tmdbRating}</p>
+                </div>
+              </div>
+
+              {/* Right Side: Providers List */}
+              <div className="col-md-6">
+                <div
+                  className="text-center"
+                  style={{
+                    backgroundColor: '#f8f9fa',
+                    padding: '1rem 0',
+                  }}
+                >
+                  <p><strong>Available On:</strong></p>
+                  {platform && platform.length > 0 ? (
+                    platform.map((provider, index) => (
+                      <p key={index}>
+                        {provider}
+                      </p>
+                    ))
+                  ) : (
+                    <p>No providers available</p>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
+
 
           <div className="featuring-section pt-5 pb-5" style={{ 
             backgroundColor: '#007bff', 
@@ -663,7 +769,7 @@ const MovieDetails = () => {
                     />
                   ) : (
                     <img
-                      src="https://via.placeholder.com/150x150?text=No+Image"
+                      src={noImage150x150}
                       alt="Placeholder"
                       style={{
                         width: '5rem',
@@ -843,6 +949,16 @@ const MovieDetails = () => {
                       marginBottom: '0.5rem'
                     }}>
                       <strong>{review.UserName}</strong>
+                      {/* Display the formatted local timestamp */}
+                      <div
+                        style={{
+                          fontSize: '0.9rem',
+                          color: '#888',
+                          marginTop: '0.5rem',
+                        }}
+                      >
+                        <em>{localTime(review.Timestamp)}</em>
+                      </div>
                     </div>
                     <p style={{
                       fontSize: '1rem', 
@@ -912,6 +1028,16 @@ const MovieDetails = () => {
                               marginBottom: '0.5rem'
                             }}>
                                 <strong>{review.UserName}</strong>
+                                {/* Display the formatted local timestamp */}
+                                <div
+                                  style={{
+                                    fontSize: '0.9rem',
+                                    color: '#888',
+                                    marginTop: '0.5rem',
+                                  }}
+                                >
+                                  <em>{localTime(review.Timestamp)}</em>
+                                </div>
                             </div>
                             <p style={{
                               fontSize: '1rem', 

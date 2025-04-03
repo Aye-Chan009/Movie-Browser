@@ -5,7 +5,7 @@ import './App.css'
 import { genres } from './assets/genres';
 import { useAuth } from "react-oidc-context";
 
-const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, setGenreType}) => {
+const NavBar = ({searchText, setSearchText, setQuery, /*setConfirm,*/ showResults, setGenreType}) => {
   const navigate = useNavigate();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);  // Create a ref for the dropdown
@@ -58,7 +58,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
     if (e.key === 'Enter') {
       e.preventDefault();
       setQuery(searchText);
-      setConfirm(true);
+      //setConfirm(true);
       navigate('/search');
       setSearchText('');
       setIsDropdownVisible(false); 
@@ -68,7 +68,7 @@ const NavBar = ({searchText, setSearchText, setQuery, setConfirm, showResults, s
   const handleSubmit = (e) => {
     e.preventDefault();
     setQuery(searchText);
-    setConfirm(true);
+    //setConfirm(true);
     navigate('/search');
     setSearchText('');
     setIsDropdownVisible(false); 

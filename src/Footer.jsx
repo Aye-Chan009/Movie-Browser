@@ -23,7 +23,8 @@ const Footer = () => {
             for providing the APIs that power this site.
           </p>
           <div className="footer-links">
-            <Link to="/About" className="footer-link">About This Website</Link>
+            <Link to="/About" className="footer-link">Project Info</Link>
+            <Link to="/Contact" className="footer-link">Contact me</Link>
           </div>
         </div>
       </div>

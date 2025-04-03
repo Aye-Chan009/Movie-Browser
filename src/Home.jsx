@@ -7,13 +7,12 @@ const accessKey = import.meta.env.VITE_Access_Key;
 
 //user name / name in cognito
 //review deletion
-//user profile to view own's reviews and delete account
+//user profile to view own's reviews and dashboard
 //account deletion
-//login redirect
+//login redirect (not to homepage)
 //stars and rating
 //movie with most reviews on home page
 //movie with highest rating on home page
-//fix about page
 
 const isReleaseDateInPast = (releaseDate) => {
     const today = new Date();

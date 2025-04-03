@@ -6,6 +6,7 @@ import MovieNotFound from './MovieNotFound.jsx'
 import About from './About.jsx'
 import Hero from './HeroSection'
 import Footer from './Footer'
+import Contact from './Contact.jsx'
 import { useLocation, Routes, Route } from 'react-router-dom'
 import SearchView from './SearchView.jsx'
 import { useState,useEffect } from 'react'
@@ -17,7 +18,7 @@ function App() {
   const [showResults, setShowResults] = useState([])
   const [searchText, setSearchText] = useState('')
   const [query, setQuery] = useState('');
-  const [confirm, setConfirm] = useState(false);
+  //const [confirm, setConfirm] = useState(false);
   const [popularMovies, setPopularMovies] = useState([])
   const [TopRatedMovies, setTopRatedMovies] = useState([])
   const [genreType, setGenreType] = useState([])
@@ -75,7 +76,7 @@ function App() {
         }
       })
       .catch(err => console.error('Fetch error:', err))
-      .finally(() => setConfirm(false));
+      //.finally(() => setConfirm(false));
 
     }, 500)
 
@@ -174,7 +175,7 @@ function App() {
           searchText={searchText}
           setSearchText={setSearchText}
           setQuery={setQuery}
-          setConfirm={setConfirm}
+          //setConfirm={setConfirm}
           showResults={showResults}
           setGenreType ={setGenreType}
         />
@@ -234,6 +235,7 @@ function App() {
         />
         <Route path="*" element={<MovieNotFound/>} />
         <Route path="/About" element={<About />} />
+        <Route path="/Contact" element={<Contact />} />
         </Routes>
         <Footer/>
     </div>

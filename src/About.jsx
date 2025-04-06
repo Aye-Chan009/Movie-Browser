@@ -46,6 +46,12 @@ const About = () => {
         <p className="text-center">
           Feel free to <Link to="/Contact">reach out here</Link> if you have any feedback or questions.
         </p>
+        <p className="text-center">
+          View the source code on GitHub:{' '}
+            <a href="https://github.com/Aye-Chan009/Movie-Browser" target="_blank" rel="noopener noreferrer">
+              https://github.com/Aye-Chan009/Movie-Browser
+            </a>
+        </p>
 
         <p className="mt-5 text-center"><strong>Thanks for stopping by — happy browsing!</strong></p>
       </div>
